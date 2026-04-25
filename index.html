@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="MD Yasin Hossain - Marketing Student & Campus Ambassador Portfolio">
+    <title>MD Yasin Hossain | Marketing Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Gradient & glass effects */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header / Nav */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
+            margin-left: 32px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+        }
+
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .hero-badge {
+            background: linear-gradient(120deg, #e0e7ff, #ede9fe);
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #5b21b6;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #1e293b, #4c1d95);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #334155;
+            margin-bottom: 28px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 8px 14px -6px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 20px -8px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-outline {
+            border: 2px solid #764ba2;
+            color: #764ba2;
+            padding: 10px 26px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: #764ba2;
+            color: white;
+        }
+
+        .hero-image {
+            flex: 0.6;
+            text-align: center;
+        }
+
+        .profile-placeholder {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(145deg, #c7d2fe, #e9d5ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+            font-size: 5rem;
+            font-weight: bold;
+            color: #4c1d95;
+        }
+
+        /* Section styling */
+        section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #f093fb);
+            border-radius: 4px;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .card .meta {
+            color: #764ba2;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 40px;
+            margin: 5px 6px 5px 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e293b;
+        }
+
+        .achievements-list, .cert-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievements-list li, .cert-list li {
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .achievements-list li:before, .cert-list li:before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+        }
+
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 16px 24px;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #1e293b;
+        }
+
+        .contact-item i {
+            font-size: 1.4rem;
+            color: #667eea;
+        }
+
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 32px 0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+            .nav-links a {
+                margin-left: 16px;
+                font-size: 0.85rem;
+            }
+            section {
+                padding: 50px 0;
+            }
+            .profile-placeholder {
+                width: 200px;
+                height: 200px;
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <span class="logo">YASIN<span style="color:#764ba2;">.</span></span>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">✨ Campus Ambassador | Marketing Enthusiast</div>
+                <h1>MD Yasin Hossain</h1>
+                <p>BBA in Marketing • University of Dhaka • Aspiring Brand Leader & Educator</p>
+                <div class="btn-group">
+                    <a href="#contact" class="btn-primary">Contact Me</a>
+                    <a href="#experience" class="btn-outline">View Experience</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-placeholder">
+                    <i class="fas fa-user-graduate" style="font-size: 5rem; color:#4c1d95;"></i>
+                </div>
+                <p style="margin-top: 12px; font-size: 0.8rem; color:#475569;"><i class="fas fa-camera"></i> Profile Photo Placeholder</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Objective (About) -->
+    <section id="about" style="background: #f1f5f9;">
+        <div class="container">
+            <h2 class="section-title">Career Objective</h2>
+            <div class="glass-card" style="padding: 40px; border-radius: 32px;">
+                <p style="font-size: 1.1rem; line-height: 1.6;">Motivated BBA student majoring in Marketing at the University of Dhaka with experience in teaching, content and research activities, student engagement, and participation in business case competitions. Actively involved in campus organizations and leadership roles, with strong communication, presentation, and teamwork skills. Seeking to contribute as a <strong>Campus Ambassador</strong> by promoting brand awareness, engaging students, supporting campaigns, and representing the brand effectively on campus.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Exp combined grid -->
+    <section id="experience">
+        <div class="container">
+            <div class="grid-2col">
+                <!-- Education -->
+                <div class="card">
+                    <h3>🎓 Education</h3>
+                    <div style="margin-bottom: 24px;">
+                        <div class="meta">Bachelor of Business Administration (BBA), Marketing</div>
+                        <p>University of Dhaka • 2nd Year, 2nd Semester</p>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+                        <div class="meta">Higher Secondary Certificate (HSC)</div>
+                        <p>Sobujbagh Govt. College • GPA: 5.00 • 2023 <br> <strong>🏆 Topper, Batch of 2023</strong></p>
+                    </div>
+                    <div>
+                        <div class="meta">Secondary School Certificate (SSC)</div>
+                        <p>Rajarbagh Police Lines School • GPA: 5.00 <br> <strong>🏆 Topper</strong></p>
+                    </div>
+                </div>
+
+                <!-- Professional Experience -->
+                <div class="card">
+                    <h3>💼 Professional Experience</h3>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Marketing Lecturer & Instructor</div>
+                        <p>Paragon University Admission Coaching • 2024–Present</p>
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Marketing Instructor</div>
+                        <p>Unique Coaching • 2025–Present</p>
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Marketing Instructor</div>
+                        <p>Ignite Coaching • 2025–Present</p>
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Private Tutor</div>
+                        <p>2022–Present — Teach marketing concepts, exam preparation, and boost confidence.</p>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+
+    <!-- Leadership + Achievements + Competitions -->
+    <section style="background: #ffffff;">
+        <div class="container">
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>🚀 Leadership & Activities</h3>
+                    <ul class="achievements-list" style="list-style: none;">
+                        <li><strong>Senior Executive</strong> – Content and Research Wing, Dhaka University Marketing Club (DUMARC)</li>
+                        <li><strong>Cultural Secretary</strong> – Surjasen Hall Innovative Marketers (SIM)</li>
+                        <li><strong>Member</strong> – Eco Care Foundation</li>
+                        <li><strong>Nature Club Member</strong> – Sobujbagh Govt. College</li>
+                        <li><strong>Campus Ambassador</strong> – Youthverse Union</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🏅 Achievements</h3>
+                    <ul class="achievements-list">
+                        <li>Co-author, <strong>“Key to Marketing”</strong> – Guidebook for admission candidates</li>
+                        <li>Topper – Sobujbagh Govt. College, Batch 2023</li>
+                        <li>Topper – Rajarbagh Police Lines School</li>
+                    </ul>
+                    <h3 style="margin-top: 28px;">📜 Certifications</h3>
+                    <ul class="cert-list">
+                        <li>Career Talk & Communication Skill – Spartans Communication Club</li>
+                        <li>Marcventure Case Competition – DUMARC</li>
+                        <li>Environmental Stewardship Program</li>
+                        <li>Workplace Communication Essentials – Passport to Earning Bangladesh</li>
+                        <li>Canva Design – Coursera</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 32px;">
+                <h3>🏆 Case Competitions</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px;">
+                    <span class="skill-tag">Marcventure by DUMARC – 1st Round</span>
+                    <span class="skill-tag">Futuremakers by GP – 1st Round</span>
+                    <span class="skill-tag">Skin'O by Supply Chain Alliance – Semi Finalist</span>
+                    <span class="skill-tag">SkinCafe by DUMARC – Semi Finalist</span>
+                    <span class="skill-tag">Entrepret by NSU YES – 1st Round</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">Skills & Tools</h2>
+            <div class="card" style="padding: 36px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    <span class="skill-tag">Communication & Presentation</span>
+                    <span class="skill-tag">Student Engagement</span>
+                    <span class="skill-tag">Content Research</span>
+                    <span class="skill-tag">Teamwork & Collaboration</span>
+                    <span class="skill-tag">Leadership & Coordination</span>
+                    <span class="skill-tag">Marketing Fundamentals</span>
+                    <span class="skill-tag">MS Office (Basic)</span>
+                    <span class="skill-tag">Adobe Photoshop (Basic)</span>
+                    <span class="skill-tag">WordPress (Basic)</span>
+                    <span class="skill-tag">Canva</span>
+                    <span class="skill-tag">Bengali (Native)</span>
+                    <span class="skill-tag">English (Fluent)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Let’s Connect</h2>
+            <div class="contact-flex">
+                <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> hossainmdyasin2020@gmail.com</a>
+                <a href="tel:01601330337" class="contact-item"><i class="fas fa-phone-alt"></i> 01601330337</a>
+                <a href="https://mdyasinhossain111.wordpress.com" target="_blank" class="contact-item"><i class="fas fa-blog"></i> WordPress Portfolio</a>
+                <a href="https://www.linkedin.com/in/mdyasinhossain" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+            <div style="margin-top: 40px; text-align: center; padding: 26px; background: #ede9fe; border-radius: 48px;">
+                <p style="font-weight: 500;">📍 Dhaka, Bangladesh — Open for <strong>Campus Ambassador & Marketing Roles</strong></p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 MD Yasin Hossain — All rights reserved. Built with <i class="fas fa-heart" style="color:#f43f5e;"></i> for portfolio excellence.</p>
+    </div>
+</footer>
+
+</body>
+</html>
