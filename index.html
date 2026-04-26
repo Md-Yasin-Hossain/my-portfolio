@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="MD Yasin Hossain - Marketing Student & Campus Ambassador Portfolio">
-    <title>MD Yasin Hossain | Marketing Portfolio</title>
+    <meta name="description" content="MD Yasin Hossain - Marketing Student & Campus Ambassador Portfolio with Newsfeed">
+    <title>MD Yasin Hossain | Portfolio + Newsfeed</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -249,7 +249,7 @@
             color: #1e293b;
         }
 
-        /* Newsfeed Styles */
+        /* Newsfeed Styles - Enhanced */
         .newsfeed {
             background: white;
             border-radius: 28px;
@@ -259,34 +259,61 @@
 
         .news-item {
             background: #f8fafc;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             border-left: 4px solid #764ba2;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
-
+        .news-item:hover {
+            transform: translateY(-2px);
+            background: #ffffff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
         .news-date {
             color: #764ba2;
             font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-
         .news-text {
             font-size: 1rem;
             color: #1e293b;
             line-height: 1.5;
+            margin-bottom: 12px;
         }
-
+        .news-image {
+            margin-top: 12px;
+            border-radius: 20px;
+            max-width: 100%;
+            max-height: 320px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .news-image:hover {
+            opacity: 0.95;
+            transform: scale(1.01);
+        }
         .delete-news {
             background: #ef4444;
             color: white;
             border: none;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 5px 14px;
+            border-radius: 40px;
             cursor: pointer;
             font-size: 0.75rem;
-            margin-top: 10px;
+            margin-top: 14px;
+            transition: 0.2s;
+        }
+        .delete-news:hover {
+            background: #dc2626;
         }
 
         /* Admin Panel Modal */
@@ -306,10 +333,10 @@
         .modal-content {
             background: white;
             border-radius: 32px;
-            padding: 40px;
-            max-width: 500px;
+            padding: 32px;
+            max-width: 550px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
 
@@ -318,10 +345,16 @@
             padding: 12px;
             margin: 10px 0;
             border: 1px solid #e2e8f0;
-            border-radius: 16px;
+            border-radius: 20px;
             font-family: inherit;
+            font-size: 0.95rem;
         }
-
+        .modal-content label {
+            font-weight: 600;
+            margin-top: 12px;
+            display: block;
+            color: #0f172a;
+        }
         .modal-content button {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
@@ -329,10 +362,16 @@
             padding: 12px 24px;
             border-radius: 40px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 16px;
             width: 100%;
+            font-weight: 600;
         }
-
+        .hr-light {
+            margin: 20px 0;
+            border: 0;
+            height: 1px;
+            background: #e2e8f0;
+        }
         .contact-flex {
             display: flex;
             flex-wrap: wrap;
@@ -364,6 +403,7 @@
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 2.4rem; }
             .profile-img { width: 200px; height: 200px; }
+            .news-image { max-height: 240px; }
         }
     </style>
 </head>
@@ -414,258 +454,234 @@
     <section id="experience">
         <div class="container">
             <div class="grid-2col">
-                <div class="card">
-                    <h3>🎓 Education</h3>
-                    <div style="margin-bottom: 24px;">
-                        <div class="meta">Bachelor of Business Administration (BBA), Marketing</div>
-                        <p>University of Dhaka • 2nd Year, 2nd Semester</p>
-                    </div>
-                    <div style="margin-bottom: 24px;">
-                        <div class="meta">Higher Secondary Certificate (HSC)</div>
-                        <p>Sobujbagh Govt. College • GPA: 5.00 • 2023 <br> <strong>🏆 Topper, Batch of 2023</strong></p>
-                    </div>
-                    <div>
-                        <div class="meta">Secondary School Certificate (SSC)</div>
-                        <p>Rajarbagh Police Lines School • GPA: 5.00 <br> <strong>🏆 Topper</strong></p>
-                    </div>
+                <div class="card"><h3>🎓 Education</h3>
+                    <div style="margin-bottom: 24px;"><div class="meta">Bachelor of Business Administration (BBA), Marketing</div><p>University of Dhaka • 2nd Year, 2nd Semester</p></div>
+                    <div style="margin-bottom: 24px;"><div class="meta">Higher Secondary Certificate (HSC)</div><p>Sobujbagh Govt. College • GPA: 5.00 • 2023 <br> <strong>🏆 Topper, Batch of 2023</strong></p></div>
+                    <div><div class="meta">Secondary School Certificate (SSC)</div><p>Rajarbagh Police Lines School • GPA: 5.00 <br> <strong>🏆 Topper</strong></p></div>
                 </div>
-
-                <div class="card">
-                    <h3>💼 Professional Experience</h3>
-                    <div style="margin-bottom: 18px;">
-                        <div class="meta">Marketing Lecturer & Instructor</div>
-                        <p>Paragon University Admission Coaching • 2024–Present</p>
-                    </div>
-                    <div style="margin-bottom: 18px;">
-                        <div class="meta">Marketing Instructor</div>
-                        <p>Unique Coaching • 2025–Present</p>
-                    </div>
-                    <div style="margin-bottom: 18px;">
-                        <div class="meta">Marketing Instructor</div>
-                        <p>Ignite Coaching • 2025–Present</p>
-                    </div>
-                    <div style="margin-bottom: 18px;">
-                        <div class="meta">Private Tutor</div>
-                        <p>2022–Present — Teach marketing concepts, exam preparation, and boost confidence.</p>
-                    </div>
+                <div class="card"><h3>💼 Professional Experience</h3>
+                    <div style="margin-bottom: 18px;"><div class="meta">Marketing Lecturer & Instructor</div><p>Paragon University Admission Coaching • 2024–Present</p></div>
+                    <div style="margin-bottom: 18px;"><div class="meta">Marketing Instructor</div><p>Unique Coaching • 2025–Present</p></div>
+                    <div style="margin-bottom: 18px;"><div class="meta">Marketing Instructor</div><p>Ignite Coaching • 2025–Present</p></div>
+                    <div style="margin-bottom: 18px;"><div class="meta">Private Tutor</div><p>2022–Present — Teach marketing concepts, exam preparation, and boost confidence.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Newsfeed Section -->
+    <!-- Newsfeed Section (with images support) -->
     <section id="newsfeed" style="background: #ffffff;">
         <div class="container">
             <h2 class="section-title">📰 Latest News & Updates</h2>
             <div id="newsfeedContainer" class="newsfeed">
-                <!-- News will appear here dynamically -->
+                <!-- dynamic news -->
             </div>
         </div>
     </section>
 
     <section id="skills" style="background: #f8fafc;">
-        <div class="container">
-            <h2 class="section-title">Skills & Tools</h2>
-            <div class="card" style="padding: 36px;">
-                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-                    <span class="skill-tag">Communication & Presentation</span>
-                    <span class="skill-tag">Student Engagement</span>
-                    <span class="skill-tag">Content Research</span>
-                    <span class="skill-tag">Teamwork & Collaboration</span>
-                    <span class="skill-tag">Leadership & Coordination</span>
-                    <span class="skill-tag">Marketing Fundamentals</span>
-                    <span class="skill-tag">MS Office (Basic)</span>
-                    <span class="skill-tag">Adobe Photoshop (Basic)</span>
-                    <span class="skill-tag">WordPress (Basic)</span>
-                    <span class="skill-tag">Canva</span>
-                    <span class="skill-tag">Bengali (Native)</span>
-                    <span class="skill-tag">English (Fluent)</span>
-                </div>
-            </div>
+        <div class="container"><h2 class="section-title">Skills & Tools</h2>
+            <div class="card" style="padding: 36px;"><div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <span class="skill-tag">Communication & Presentation</span><span class="skill-tag">Student Engagement</span><span class="skill-tag">Content Research</span>
+                <span class="skill-tag">Teamwork & Collaboration</span><span class="skill-tag">Leadership & Coordination</span><span class="skill-tag">Marketing Fundamentals</span>
+                <span class="skill-tag">MS Office (Basic)</span><span class="skill-tag">Adobe Photoshop (Basic)</span><span class="skill-tag">WordPress (Basic)</span>
+                <span class="skill-tag">Canva</span><span class="skill-tag">Bengali (Native)</span><span class="skill-tag">English (Fluent)</span>
+            </div></div>
         </div>
     </section>
 
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Let's Connect</h2>
-            <div class="contact-flex">
-                <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> hossainmdyasin2020@gmail.com</a>
-                <a href="tel:01601330337" class="contact-item"><i class="fas fa-phone-alt"></i> 01601330337</a>
-                <a href="https://mdyasinhossain111.wordpress.com" target="_blank" class="contact-item"><i class="fas fa-blog"></i> WordPress Portfolio</a>
-                <a href="https://www.linkedin.com/in/mdyasinhossain" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            </div>
-            <div style="margin-top: 40px; text-align: center; padding: 26px; background: #ede9fe; border-radius: 48px;">
-                <p style="font-weight: 500;">📍 Dhaka, Bangladesh — Open for <strong>Campus Ambassador & Marketing Roles</strong></p>
-            </div>
+    <section id="contact"><div class="container"><h2 class="section-title">Let's Connect</h2>
+        <div class="contact-flex">
+            <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> hossainmdyasin2020@gmail.com</a>
+            <a href="tel:01601330337" class="contact-item"><i class="fas fa-phone-alt"></i> 01601330337</a>
+            <a href="https://mdyasinhossain111.wordpress.com" target="_blank" class="contact-item"><i class="fas fa-blog"></i> WordPress Portfolio</a>
+            <a href="https://www.linkedin.com/in/mdyasinhossain" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
         </div>
-    </section>
+        <div style="margin-top: 40px; text-align: center; padding: 26px; background: #ede9fe; border-radius: 48px;">
+            <p style="font-weight: 500;">📍 Dhaka, Bangladesh — Open for <strong>Campus Ambassador & Marketing Roles</strong></p>
+        </div>
+    </div></section>
 </main>
 
-<footer>
-    <div class="container">
-        <p>© 2026 MD Yasin Hossain — All rights reserved. Built with <i class="fas fa-heart" style="color:#f43f5e;"></i> for portfolio excellence.</p>
-    </div>
-</footer>
+<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart" style="color:#f43f5e;"></i> | Admin features: photo + news with images</p></div></footer>
 
 <!-- Admin Login Modal -->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h3>Admin Login</h3>
-        <input type="password" id="adminPassword" placeholder="Enter Password">
-        <button onclick="checkAdminLogin()">Login</button>
-    </div>
-</div>
+<div id="loginModal" class="modal"><div class="modal-content"><h3>Admin Login</h3><input type="password" id="adminPassword" placeholder="Enter Password"><button onclick="checkAdminLogin()">Login</button></div></div>
 
-<!-- Admin Panel Modal -->
-<div id="adminModal" class="modal">
-    <div class="modal-content">
-        <h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
-        
-        <h4>📸 Change Profile Photo</h4>
-        <input type="text" id="photoUrlInput" placeholder="Paste image URL (e.g., https://example.com/photo.jpg)">
-        <button onclick="updateProfilePhoto()">Update Photo</button>
-        
-        <hr style="margin: 20px 0;">
-        
-        <h4>📝 Add News Post</h4>
-        <textarea id="newsTextInput" rows="3" placeholder="Write your news or update here..."></textarea>
-        <button onclick="addNews()">Publish News</button>
-        
-        <hr style="margin: 20px 0;">
-        
-        <h4>🗑️ Manage News</h4>
-        <div id="adminNewsList"></div>
-        
-        <button onclick="closeAdminPanel()" style="background: #64748b;">Close Panel</button>
-    </div>
-</div>
+<!-- Enhanced Admin Panel with Image Upload for News -->
+<div id="adminModal" class="modal"><div class="modal-content">
+    <h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
+    <h4>📸 Change Profile Photo</h4>
+    <input type="text" id="photoUrlInput" placeholder="Paste direct image URL (JPEG/PNG)">
+    <button onclick="updateProfilePhoto()">Update Profile Photo</button>
+    <hr class="hr-light">
+    <h4>📝 Add News Post (with optional image)</h4>
+    <label>📄 News Text</label>
+    <textarea id="newsTextInput" rows="2" placeholder="Write your update here..."></textarea>
+    <label>🖼️ Image URL (optional)</label>
+    <input type="text" id="newsImageInput" placeholder="Paste image link (direct .jpg/.png) or leave empty">
+    <button onclick="addNewsWithImage()">Publish News</button>
+    <hr class="hr-light">
+    <h4>🗑️ Manage News (edit/delete)</h4>
+    <div id="adminNewsList"></div>
+    <button onclick="closeAdminPanel()" style="background:#475569;">Close Panel</button>
+</div></div>
 
 <script>
-    // Load data from localStorage
-    let newsItems = [];
+    // ---------- DATA STORAGE ----------
+    let newsItems = [];     // each item: { id, text, imageUrl, date }
     let profilePhotoUrl = "";
 
+    // ---------- HELPERS ----------
     function loadData() {
-        const savedNews = localStorage.getItem("yasinsNews");
+        const savedNews = localStorage.getItem("yasinsNews_v2");
         if(savedNews) {
             newsItems = JSON.parse(savedNews);
         } else {
-            // Default sample news
+            // sample startup with image demo
             newsItems = [
-                { id: Date.now(), text: "🎉 Excited to announce I'm looking for Campus Ambassador opportunities! Open to collaborations.", date: new Date().toLocaleDateString() },
-                { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback from students.", date: new Date().toLocaleDateString() }
+                { id: Date.now(), text: "🎉 Excited to announce I'm looking for Campus Ambassador opportunities! Open to collaborations.", imageUrl: "", date: new Date().toLocaleDateString() },
+                { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback from students. Here's a moment from the session!", imageUrl: "https://picsum.photos/id/20/600/400", date: new Date().toLocaleDateString() }
             ];
             saveNews();
         }
         
         const savedPhoto = localStorage.getItem("yasinsPhoto");
-        if(savedPhoto) {
+        if(savedPhoto && savedPhoto !== "") {
             profilePhotoUrl = savedPhoto;
         } else {
-            profilePhotoUrl = "https://via.placeholder.com/400x400/667eea/white?text=MD+Yasin";
+            profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
         }
-        
         document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
     }
     
     function saveNews() {
-        localStorage.setItem("yasinsNews", JSON.stringify(newsItems));
+        localStorage.setItem("yasinsNews_v2", JSON.stringify(newsItems));
     }
     
     function savePhoto() {
         localStorage.setItem("yasinsPhoto", profilePhotoUrl);
     }
     
+    // display on public newsfeed
     function displayNews() {
         const container = document.getElementById("newsfeedContainer");
-        if(newsItems.length === 0) {
-            container.innerHTML = '<div class="news-item"><p style="color: #64748b;">No news yet. Check back soon!</p></div>';
+        if(!newsItems.length) {
+            container.innerHTML = '<div class="news-item"><p style="color:#64748b;">✨ No news yet. Use Admin panel to post updates!</p></div>';
             return;
         }
-        
-        container.innerHTML = newsItems.slice().reverse().map(item => `
+        // show latest first (reverse)
+        const reversed = [...newsItems].reverse();
+        container.innerHTML = reversed.map(item => `
             <div class="news-item" id="news-${item.id}">
                 <div class="news-date"><i class="far fa-calendar-alt"></i> ${item.date}</div>
-                <div class="news-text">${item.text}</div>
+                <div class="news-text">${escapeHtml(item.text)}</div>
+                ${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" alt="news visual" onclick="window.open(this.src)">` : ''}
             </div>
         `).join('');
     }
     
+    // helper to avoid XSS
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+    
+    // Admin: show news list with images + delete
     function displayAdminNews() {
         const container = document.getElementById("adminNewsList");
-        if(newsItems.length === 0) {
-            container.innerHTML = '<p>No news posts yet.</p>';
+        if(!newsItems.length) {
+            container.innerHTML = '<p style="color:#64748b;">No posts yet. Add your first news above.</p>';
             return;
         }
-        
-        container.innerHTML = newsItems.slice().reverse().map(item => `
-            <div style="border:1px solid #e2e8f0; border-radius:16px; padding:12px; margin-bottom:12px;">
-                <p style="font-size:0.8rem; color:#764ba2;">${item.date}</p>
-                <p style="margin:8px 0;">${item.text}</p>
-                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:20px; cursor:pointer;">Delete</button>
+        const reversed = [...newsItems].reverse();
+        container.innerHTML = reversed.map(item => `
+            <div style="border:1px solid #e2e8f0; border-radius:20px; padding:14px; margin-bottom:16px; background:#fff;">
+                <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:0.75rem; background:#ede9fe; padding:4px 10px; border-radius:40px;">${item.date}</span></div>
+                <p style="margin:12px 0; font-weight:500;">📝 ${escapeHtml(item.text)}</p>
+                ${item.imageUrl ? `<div style="margin:8px 0;"><img src="${item.imageUrl}" style="max-width:100%; max-height:140px; border-radius:16px; object-fit:cover;"></div>` : '<div style="font-size:0.7rem; color:#94a3b8;">📷 No image</div>'}
+                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 16px; border-radius:40px; margin-top:12px; cursor:pointer;">🗑️ Delete</button>
             </div>
         `).join('');
     }
     
-    function addNews() {
+    // Add news with optional image URL
+    function addNewsWithImage() {
         const text = document.getElementById("newsTextInput").value.trim();
         if(text === "") {
             alert("Please write something before publishing!");
             return;
         }
-        
+        let imageUrl = document.getElementById("newsImageInput").value.trim();
+        // basic validation for URL if provided
+        if(imageUrl !== "" && !(imageUrl.startsWith("http://") || imageUrl.startsWith("https://"))) {
+            alert("Image URL must start with http:// or https:// (or leave empty).");
+            return;
+        }
         const newNews = {
             id: Date.now(),
             text: text,
-            date: new Date().toLocaleDateString()
+            imageUrl: imageUrl,
+            date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
         };
-        
         newsItems.push(newNews);
         saveNews();
         displayNews();
         displayAdminNews();
+        // clear inputs
         document.getElementById("newsTextInput").value = "";
-        alert("News published successfully!");
+        document.getElementById("newsImageInput").value = "";
+        alert("✅ News published successfully!");
     }
     
     function deleteNews(id) {
-        if(confirm("Are you sure you want to delete this news?")) {
+        if(confirm("Delete this news post permanently?")) {
             newsItems = newsItems.filter(item => item.id !== id);
             saveNews();
             displayNews();
             displayAdminNews();
-            alert("News deleted!");
+            alert("News deleted.");
         }
     }
     
     function updateProfilePhoto() {
-        const newUrl = document.getElementById("photoUrlInput").value.trim();
+        let newUrl = document.getElementById("photoUrlInput").value.trim();
         if(newUrl === "") {
-            alert("Please paste a valid image URL!");
+            alert("Please paste a valid direct image URL (ending in .jpg, .png or any direct link). Use Imgur or PostImage direct link.");
             return;
         }
-        
+        if(!(newUrl.startsWith("http://") || newUrl.startsWith("https://"))) {
+            alert("URL must start with http:// or https://");
+            return;
+        }
         profilePhotoUrl = newUrl;
         savePhoto();
         document.getElementById("profileImage").src = profilePhotoUrl;
-        alert("Profile photo updated successfully!");
+        alert("Profile photo updated! 🎉");
         document.getElementById("photoUrlInput").value = "";
     }
     
+    // modal logic
     function openAdminLogin() {
         document.getElementById("loginModal").style.display = "flex";
     }
     
     function checkAdminLogin() {
-        const password = document.getElementById("adminPassword").value;
-        if(password === "admin123") {
+        const pwd = document.getElementById("adminPassword").value;
+        if(pwd === "admin123") {
             document.getElementById("loginModal").style.display = "none";
             document.getElementById("adminModal").style.display = "flex";
             displayAdminNews();
             document.getElementById("adminPassword").value = "";
         } else {
-            alert("Incorrect password! Try: admin123");
+            alert("Wrong password! Use: admin123");
         }
     }
     
@@ -673,7 +689,6 @@
         document.getElementById("adminModal").style.display = "none";
     }
     
-    // Close modals when clicking outside
     window.onclick = function(event) {
         const loginModal = document.getElementById("loginModal");
         const adminModal = document.getElementById("adminModal");
@@ -681,6 +696,7 @@
         if(event.target === adminModal) adminModal.style.display = "none";
     }
     
+    // initial load
     loadData();
 </script>
 </body>
