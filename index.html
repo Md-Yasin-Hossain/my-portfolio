@@ -22,159 +22,6 @@
             scroll-behavior: smooth;
         }
 
-        /* ========== CSS-ONLY WELCOME GREETING - Auto disappears after 3 seconds ========== */
-        .welcome-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: fadeOutOverlay 0.5s ease-in 3s forwards;
-            pointer-events: none;
-        }
-        
-        @keyframes fadeOutOverlay {
-            0% {
-                opacity: 1;
-                visibility: visible;
-            }
-            100% {
-                opacity: 0;
-                visibility: hidden;
-                display: none;
-            }
-        }
-        
-        .welcome-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
-            backdrop-filter: blur(20px);
-            border-radius: 48px;
-            padding: 48px 56px;
-            text-align: center;
-            max-width: 500px;
-            width: 85%;
-            box-shadow: 0 40px 70px rgba(0,0,0,0.3);
-            animation: welcomeBounce 0.6s cubic-bezier(0.34, 1.2, 0.64, 1), fadeOutCard 0.3s ease-in 2.8s forwards;
-            border: 1px solid rgba(255,255,255,0.5);
-            pointer-events: none;
-        }
-        
-        @keyframes welcomeBounce {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            60% {
-                transform: scale(1.05);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes fadeOutCard {
-            0% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-        }
-        
-        .welcome-icon {
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: waveIcon 0.8s ease infinite;
-        }
-        
-        @keyframes waveIcon {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(15deg); }
-            75% { transform: rotate(-10deg); }
-        }
-        
-        .welcome-card h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 12px;
-        }
-        
-        .welcome-greeting {
-            font-size: 1.4rem;
-            color: #334155;
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
-        
-        .welcome-name {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
-        }
-        
-        .welcome-message {
-            color: #475569;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        
-        .welcome-timer {
-            margin-top: 15px;
-            font-size: 0.75rem;
-            color: #94a3b8;
-        }
-
-        /* ========== ANIMATIONS & TRANSITIONS ========== */
-        body {
-            animation: fadeInPage 0.8s ease-out;
-        }
-        
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s ease-out;
-        }
-        
-        .stagger-item.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -201,11 +48,6 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: all 0.3s ease;
-        }
-        
-        nav:hover {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         .nav-container {
@@ -224,11 +66,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
         }
 
         .nav-links a {
@@ -236,28 +73,11 @@
             color: #1e293b;
             font-weight: 500;
             margin-left: 32px;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.3s ease;
         }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
+
         .nav-links a:hover {
             color: #764ba2;
-            transform: translateY(-2px);
         }
 
         .admin-btn {
@@ -270,28 +90,8 @@
             font-weight: 600;
             margin-left: 20px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .admin-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .admin-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
+
         .admin-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
@@ -323,11 +123,6 @@
             font-weight: 600;
             color: #5b21b6;
             margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .hero-badge:hover {
-            transform: translateX(5px);
         }
 
         .hero-content h1 {
@@ -339,25 +134,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: slideInLeft 0.8s ease-out;
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .hero-content p {
             font-size: 1.2rem;
             color: #334155;
             margin-bottom: 28px;
-            animation: slideInLeft 0.8s ease-out 0.1s both;
         }
 
         .btn-group {
@@ -376,23 +158,6 @@
             transition: all 0.3s ease;
             display: inline-block;
             box-shadow: 0 8px 14px -6px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-primary:hover::before {
-            left: 100%;
         }
 
         .btn-primary:hover {
@@ -414,24 +179,11 @@
             background: #764ba2;
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
         }
 
         .hero-image {
             flex: 0.6;
             text-align: center;
-            animation: fadeInRight 0.8s ease-out;
-        }
-        
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .profile-img {
@@ -442,9 +194,9 @@
             box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
             border: 4px solid white;
             background: #f1f5f9;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
         }
-        
+
         .profile-img:hover {
             transform: scale(1.05) rotate(3deg);
         }
@@ -470,11 +222,6 @@
             height: 4px;
             background: linear-gradient(90deg, #667eea, #f093fb);
             border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-        
-        .section-title:hover:after {
-            width: 100%;
         }
 
         .grid-2col {
@@ -488,7 +235,7 @@
             border-radius: 28px;
             padding: 28px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
             border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
@@ -501,14 +248,13 @@
             font-size: 1.5rem;
             margin-bottom: 12px;
             color: #0f172a;
-            transition: color 0.3s;
         }
-        
-        .card:hover h3 {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+
+        .card .meta {
+            color: #764ba2;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
         }
 
         .skill-tag {
@@ -522,11 +268,11 @@
             color: #1e293b;
             transition: all 0.3s ease;
         }
-        
+
         .skill-tag:hover {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            transform: translateY(-2px) scale(1.05);
+            transform: translateY(-2px);
         }
 
         .newsfeed {
@@ -543,40 +289,28 @@
             margin-bottom: 24px;
             border-left: 4px solid #764ba2;
             transition: all 0.4s ease;
-            animation: fadeInUp 0.6s ease-out;
         }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
+
         .news-item:hover {
             transform: translateX(8px);
             background: #ffffff;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        
+
         .news-date {
             color: #764ba2;
             font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 12px;
         }
-        
+
         .news-text {
             font-size: 1rem;
             color: #1e293b;
             line-height: 1.5;
             margin-bottom: 12px;
         }
-        
+
         .news-image {
             margin-top: 12px;
             border-radius: 20px;
@@ -586,10 +320,9 @@
             transition: all 0.4s ease;
             cursor: pointer;
         }
-        
+
         .news-image:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .contact-flex {
@@ -612,14 +345,13 @@
             color: #1e293b;
             transition: all 0.3s ease;
         }
-        
+
         .contact-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
         }
-        
+
         .contact-item:hover i {
             color: white;
         }
@@ -630,11 +362,6 @@
             text-align: center;
             padding: 32px 0;
             margin-top: 40px;
-            transition: all 0.3s;
-        }
-        
-        footer:hover {
-            background: #1e293b;
         }
 
         .modal {
@@ -648,12 +375,6 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         .modal-content {
@@ -664,43 +385,36 @@
             width: 90%;
             max-height: 85vh;
             overflow-y: auto;
-            animation: slideUp 0.4s ease;
         }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            font-family: inherit;
+        }
+
+        .modal-content button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 2.4rem; }
             .profile-img { width: 200px; height: 200px; }
-            .welcome-card { padding: 32px 24px; }
-            .welcome-card h2 { font-size: 1.5rem; }
-            .welcome-greeting { font-size: 1.1rem; }
-            .welcome-name { font-size: 1.3rem; }
+            .nav-links a { margin-left: 16px; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-
-<!-- WELCOME GREETING - Pure CSS auto-disappears in 3 seconds -->
-<div class="welcome-overlay">
-    <div class="welcome-card">
-        <div class="welcome-icon" id="welcomeIcon">👋</div>
-        <h2>Welcome!</h2>
-        <div class="welcome-greeting" id="welcomeGreeting">Good afternoon!</div>
-        <div class="welcome-name">MD Yasin Hossain</div>
-        <div class="welcome-message">Thank you for visiting my portfolio. I'm a marketing student at University of Dhaka, passionate about brand ambassadorship and student engagement. Feel free to explore my work and connect with me!</div>
-        <div class="welcome-timer">✨ Welcome to my portfolio ✨</div>
-    </div>
-</div>
 
 <nav>
     <div class="nav-container">
@@ -735,7 +449,7 @@
         </div>
     </section>
 
-    <section id="about" style="background: #f1f5f9;" class="reveal">
+    <section id="about" style="background: #f1f5f9;">
         <div class="container">
             <h2 class="section-title">Career Objective</h2>
             <div class="glass-card" style="padding: 40px; border-radius: 32px;">
@@ -747,127 +461,165 @@
     <section id="experience">
         <div class="container">
             <div class="grid-2col">
-                <div class="card stagger-item">
+                <div class="card">
                     <h3>🎓 Education</h3>
-                    <div style="margin-bottom: 24px;"><div class="meta">Bachelor of Business Administration (BBA), Marketing</div><p>University of Dhaka • 2nd Year, 2nd Semester</p></div>
-                    <div style="margin-bottom: 24px;"><div class="meta">Higher Secondary Certificate (HSC)</div><p>Sobujbagh Govt. College • GPA: 5.00 • 2023 <br> <strong>🏆 Topper, Batch of 2023</strong></p></div>
-                    <div><div class="meta">Secondary School Certificate (SSC)</div><p>Rajarbagh Police Lines School • GPA: 5.00 <br> <strong>🏆 Topper</strong></p></div>
+                    <div style="margin-bottom: 24px;">
+                        <div class="meta">Bachelor of Business Administration (BBA), Marketing</div>
+                        <p>University of Dhaka • 2nd Year, 2nd Semester</p>
+                    </div>
+                    <div style="margin-bottom: 24px;">
+                        <div class="meta">Higher Secondary Certificate (HSC)</div>
+                        <p>Sobujbagh Govt. College • GPA: 5.00 • 2023 <br> <strong>🏆 Topper, Batch of 2023</strong></p>
+                    </div>
+                    <div>
+                        <div class="meta">Secondary School Certificate (SSC)</div>
+                        <p>Rajarbagh Police Lines School • GPA: 5.00 <br> <strong>🏆 Topper</strong></p>
+                    </div>
                 </div>
-                <div class="card stagger-item">
+
+                <div class="card">
                     <h3>💼 Professional Experience</h3>
-                    <div style="margin-bottom: 18px;"><div class="meta">Marketing Lecturer & Instructor</div><p>Paragon University Admission Coaching • 2024–Present</p></div>
-                    <div style="margin-bottom: 18px;"><div class="meta">Marketing Instructor</div><p>Unique Coaching • 2025–Present</p></div>
-                    <div style="margin-bottom: 18px;"><div class="meta">Marketing Instructor</div><p>Ignite Coaching • 2025–Present</p></div>
-                    <div style="margin-bottom: 18px;"><div class="meta">Private Tutor</div><p>2022–Present — Teach marketing concepts, exam preparation, and boost confidence.</p></div>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Marketing Lecturer & Instructor</div>
+                        <p>Paragon University Admission Coaching • 2024–Present</p>
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Marketing Instructor</div>
+                        <p>Unique Coaching • 2025–Present</p>
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Marketing Instructor</div>
+                        <p>Ignite Coaching • 2025–Present</p>
+                    </div>
+                    <div style="margin-bottom: 18px;">
+                        <div class="meta">Private Tutor</div>
+                        <p>2022–Present — Teach marketing concepts, exam preparation, and boost confidence.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="newsfeed" style="background: #ffffff;" class="reveal">
+    <section id="newsfeed" style="background: #ffffff;">
         <div class="container">
             <h2 class="section-title">📰 Latest News & Updates</h2>
             <div id="newsfeedContainer" class="newsfeed"></div>
         </div>
     </section>
 
-    <section id="skills" style="background: #f8fafc;" class="reveal">
-        <div class="container"><h2 class="section-title">Skills & Tools</h2>
-            <div class="card" style="padding: 36px;"><div style="display: flex; flex-wrap: wrap; gap: 12px;">
-                <span class="skill-tag">Communication & Presentation</span><span class="skill-tag">Student Engagement</span><span class="skill-tag">Content Research</span>
-                <span class="skill-tag">Teamwork & Collaboration</span><span class="skill-tag">Leadership & Coordination</span><span class="skill-tag">Marketing Fundamentals</span>
-                <span class="skill-tag">MS Office (Basic)</span><span class="skill-tag">Adobe Photoshop (Basic)</span><span class="skill-tag">WordPress (Basic)</span>
-                <span class="skill-tag">Canva</span><span class="skill-tag">Bengali (Native)</span><span class="skill-tag">English (Fluent)</span>
-            </div></div>
+    <section id="skills" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">Skills & Tools</h2>
+            <div class="card" style="padding: 36px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    <span class="skill-tag">Communication & Presentation</span>
+                    <span class="skill-tag">Student Engagement</span>
+                    <span class="skill-tag">Content Research</span>
+                    <span class="skill-tag">Teamwork & Collaboration</span>
+                    <span class="skill-tag">Leadership & Coordination</span>
+                    <span class="skill-tag">Marketing Fundamentals</span>
+                    <span class="skill-tag">MS Office (Basic)</span>
+                    <span class="skill-tag">Adobe Photoshop (Basic)</span>
+                    <span class="skill-tag">WordPress (Basic)</span>
+                    <span class="skill-tag">Canva</span>
+                    <span class="skill-tag">Bengali (Native)</span>
+                    <span class="skill-tag">English (Fluent)</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="reveal"><div class="container"><h2 class="section-title">Let's Connect</h2>
-        <div class="contact-flex">
-            <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> hossainmdyasin2020@gmail.com</a>
-            <a href="tel:01601330337" class="contact-item"><i class="fas fa-phone-alt"></i> 01601330337</a>
-            <a href="https://mdyasinhossain111.wordpress.com" target="_blank" class="contact-item"><i class="fas fa-blog"></i> WordPress Portfolio</a>
-            <a href="https://www.linkedin.com/in/mdyasinhossain" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-flex">
+                <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> hossainmdyasin2020@gmail.com</a>
+                <a href="tel:01601330337" class="contact-item"><i class="fas fa-phone-alt"></i> 01601330337</a>
+                <a href="https://mdyasinhossain111.wordpress.com" target="_blank" class="contact-item"><i class="fas fa-blog"></i> WordPress Portfolio</a>
+                <a href="https://www.linkedin.com/in/mdyasinhossain" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+            <div style="margin-top: 40px; text-align: center; padding: 26px; background: #ede9fe; border-radius: 48px;">
+                <p style="font-weight: 500;">📍 Dhaka, Bangladesh — Open for <strong>Campus Ambassador & Marketing Roles</strong></p>
+            </div>
         </div>
-        <div style="margin-top: 40px; text-align: center; padding: 26px; background: #ede9fe; border-radius: 48px;">
-            <p style="font-weight: 500;">📍 Dhaka, Bangladesh — Open for <strong>Campus Ambassador & Marketing Roles</strong></p>
-        </div>
-    </div></section>
+    </section>
 </main>
 
-<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart" style="color:#f43f5e;"></i> | Smooth Animations</p></div></footer>
+<footer>
+    <div class="container">
+        <p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart" style="color:#f43f5e;"></i> | Professional Portfolio</p>
+    </div>
+</footer>
 
-<!-- Admin Login Modal -->
-<div id="loginModal" class="modal"><div class="modal-content"><h3>Admin Login</h3><input type="password" id="adminPassword" placeholder="Enter Password"><button onclick="checkAdminLogin()">Login</button></div></div>
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h3>Admin Login</h3>
+        <input type="password" id="adminPassword" placeholder="Enter Password">
+        <button onclick="checkAdminLogin()">Login</button>
+    </div>
+</div>
 
-<div id="adminModal" class="modal"><div class="modal-content">
-    <h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
-    <h4>📸 Change Profile Photo</h4>
-    <input type="text" id="photoUrlInput" placeholder="Paste direct image URL">
-    <button onclick="updateProfilePhoto()">Update Photo</button>
-    <hr style="margin: 20px 0;">
-    <h4>📝 Add News Post (with optional image)</h4>
-    <textarea id="newsTextInput" rows="2" placeholder="Write your update..."></textarea>
-    <input type="text" id="newsImageInput" placeholder="Image URL (optional)">
-    <button onclick="addNewsWithImage()">Publish News</button>
-    <hr style="margin: 20px 0;">
-    <h4>🗑️ Manage News</h4>
-    <div id="adminNewsList"></div>
-    <button onclick="closeAdminPanel()" style="background:#475569;">Close Panel</button>
-</div></div>
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
+        <h4>📸 Change Profile Photo</h4>
+        <input type="text" id="photoUrlInput" placeholder="Paste direct image URL">
+        <button onclick="updateProfilePhoto()">Update Photo</button>
+        <hr style="margin: 20px 0;">
+        <h4>📝 Add News Post</h4>
+        <textarea id="newsTextInput" rows="3" placeholder="Write your news here..."></textarea>
+        <input type="text" id="newsImageInput" placeholder="Image URL (optional)">
+        <button onclick="addNews()">Publish News</button>
+        <hr style="margin: 20px 0;">
+        <h4>🗑️ Manage News</h4>
+        <div id="adminNewsList"></div>
+        <button onclick="closeAdminPanel()" style="background: #475569;">Close Panel</button>
+    </div>
+</div>
 
 <script>
-    // ========== WELCOME GREETING - Set time-based message ==========
-    function setWelcomeGreeting() {
-        const now = new Date();
-        const hours = now.getHours();
-        const greetingElement = document.getElementById('welcomeGreeting');
-        const iconElement = document.getElementById('welcomeIcon');
-        
-        if (hours >= 5 && hours < 12) {
-            greetingElement.innerHTML = 'Good morning! ☀️';
-            iconElement.innerHTML = '🌅';
-        } else if (hours >= 12 && hours < 17) {
-            greetingElement.innerHTML = 'Good afternoon! 😊';
-            iconElement.innerHTML = '☀️';
-        } else if (hours >= 17 && hours < 21) {
-            greetingElement.innerHTML = 'Good evening! 🌙';
-            iconElement.innerHTML = '✨';
-        } else {
-            greetingElement.innerHTML = 'Good night! 🌙💤';
-            iconElement.innerHTML = '🌙';
-        }
-    }
-    
-    setWelcomeGreeting();
-    
-    // ========== EXISTING WEBSITE FUNCTIONS ==========
     let newsItems = [];
     let profilePhotoUrl = "";
 
     function loadData() {
-        const savedNews = localStorage.getItem("yasinsNews_v2");
-        if(savedNews) newsItems = JSON.parse(savedNews);
-        else newsItems = [
-            { id: Date.now(), text: "🎉 Excited to announce I'm looking for Campus Ambassador opportunities! Open to collaborations.", imageUrl: "", date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) },
-            { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback from students!", imageUrl: "", date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) }
-        ];
-        saveNews();
+        const savedNews = localStorage.getItem("yasinsNews");
+        if(savedNews) {
+            newsItems = JSON.parse(savedNews);
+        } else {
+            newsItems = [
+                { id: Date.now(), text: "🎉 Excited to announce I'm looking for Campus Ambassador opportunities! Open to collaborations.", imageUrl: "", date: new Date().toLocaleDateString() },
+                { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback from students.", imageUrl: "", date: new Date().toLocaleDateString() }
+            ];
+            saveNews();
+        }
         
         const savedPhoto = localStorage.getItem("yasinsPhoto");
-        profilePhotoUrl = savedPhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
+        if(savedPhoto) {
+            profilePhotoUrl = savedPhoto;
+        } else {
+            profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
+        }
+        
         document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
     }
     
-    function saveNews() { localStorage.setItem("yasinsNews_v2", JSON.stringify(newsItems)); }
-    function savePhoto() { localStorage.setItem("yasinsPhoto", profilePhotoUrl); }
+    function saveNews() {
+        localStorage.setItem("yasinsNews", JSON.stringify(newsItems));
+    }
+    
+    function savePhoto() {
+        localStorage.setItem("yasinsPhoto", profilePhotoUrl);
+    }
     
     function displayNews() {
         const container = document.getElementById("newsfeedContainer");
-        if(!newsItems.length) { container.innerHTML = '<div class="news-item"><p>No news yet. Use Admin panel to post updates!</p></div>'; return; }
-        const reversed = [...newsItems].reverse();
-        container.innerHTML = reversed.map(item => `
+        if(newsItems.length === 0) {
+            container.innerHTML = '<div class="news-item"><p style="color: #64748b;">No news yet. Add your first post from Admin panel!</p></div>';
+            return;
+        }
+        
+        container.innerHTML = newsItems.slice().reverse().map(item => `
             <div class="news-item">
                 <div class="news-date"><i class="far fa-calendar-alt"></i> ${item.date}</div>
                 <div class="news-text">${escapeHtml(item.text)}</div>
@@ -876,24 +628,99 @@
         `).join('');
     }
     
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
-    
     function displayAdminNews() {
         const container = document.getElementById("adminNewsList");
-        if(!newsItems.length) { container.innerHTML = '<p>No posts.</p>'; return; }
-        const reversed = [...newsItems].reverse();
-        container.innerHTML = reversed.map(item => `
-            <div style="border:1px solid #e2e8f0; border-radius:20px; padding:14px; margin-bottom:16px;">
-                <p style="font-size:0.75rem; color:#764ba2;">${item.date}</p>
-                <p>${escapeHtml(item.text)}</p>
+        if(newsItems.length === 0) {
+            container.innerHTML = '<p>No news posts yet.</p>';
+            return;
+        }
+        
+        container.innerHTML = newsItems.slice().reverse().map(item => `
+            <div style="border:1px solid #e2e8f0; border-radius:16px; padding:12px; margin-bottom:12px;">
+                <p style="font-size:0.8rem; color:#764ba2;">${item.date}</p>
+                <p style="margin:8px 0;">${escapeHtml(item.text)}</p>
                 ${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%; max-height:100px; border-radius:12px;">` : ''}
-                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 16px; border-radius:40px; margin-top:10px; cursor:pointer;">Delete</button>
+                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:20px; cursor:pointer; margin-top:8px;">Delete</button>
             </div>
         `).join('');
     }
     
-    function addNewsWithImage() {
+    function addNews() {
         const text = document.getElementById("newsTextInput").value.trim();
-        if(!text) { alert("Please write something!"); return; }
+        if(text === "") {
+            alert("Please write something before publishing!");
+            return;
+        }
         const imageUrl = document.getElementById("newsImageInput").value.trim();
-        newsItems.push({ id: Date.now(), text: text, imageUrl: imageUrl, date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+        
+        const newNews = {
+            id: Date.now(),
+            text: text,
+            imageUrl: imageUrl,
+            date: new Date().toLocaleDateString()
+        };
+        
+        newsItems.push(newNews);
+        saveNews();
+        displayNews();
+        displayAdminNews();
+        document.getElementById("newsTextInput").value = "";
+        document.getElementById("newsImageInput").value = "";
+        alert("News published successfully!");
+    }
+    
+    function deleteNews(id) {
+        if(confirm("Are you sure you want to delete this news?")) {
+            newsItems = newsItems.filter(item => item.id !== id);
+            saveNews();
+            displayNews();
+            displayAdminNews();
+            alert("News deleted!");
+        }
+    }
+    
+    function updateProfilePhoto() {
+        const newUrl = document.getElementById("photoUrlInput").value.trim();
+        if(newUrl === "") {
+            alert("Please paste a valid image URL!");
+            return;
+        }
+        
+        profilePhotoUrl = newUrl;
+        savePhoto();
+        document.getElementById("profileImage").src = profilePhotoUrl;
+        alert("Profile photo updated successfully!");
+        document.getElementById("photoUrlInput").value = "";
+    }
+    
+    function openAdminLogin() {
+        document.getElementById("loginModal").style.display = "flex";
+    }
+    
+    function checkAdminLogin() {
+        const password = document.getElementById("adminPassword").value;
+        if(password === "admin123") {
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("adminModal").style.display = "flex";
+            displayAdminNews();
+            document.getElementById("adminPassword").value = "";
+        } else {
+            alert("Incorrect password! Use: admin123");
+        }
+    }
+    
+    function closeAdminPanel() {
+        document.getElementById("adminModal").style.display = "none";
+    }
+    
+    window.onclick = function(event) {
+        const loginModal = document.getElementById("loginModal");
+        const adminModal = document.getElementById("adminModal");
+        if(event.target === loginModal) loginModal.style.display = "none";
+        if(event.target === adminModal) adminModal.style.display = "none";
+    }
+    
+    loadData();
+</script>
+</body>
+</html>
