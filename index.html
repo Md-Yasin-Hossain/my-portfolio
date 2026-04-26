@@ -328,13 +328,14 @@
         .contact-flex {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 20px;
             justify-content: center;
+            margin-bottom: 30px;
         }
 
         .contact-item {
             background: white;
-            padding: 16px 24px;
+            padding: 14px 24px;
             border-radius: 60px;
             display: inline-flex;
             align-items: center;
@@ -348,12 +349,54 @@
 
         .contact-item:hover {
             transform: translateY(-5px);
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Facebook specific hover */
+        .contact-item.facebook:hover {
+            background: #1877f2;
+            color: white;
+        }
+        .contact-item.facebook:hover i {
             color: white;
         }
 
-        .contact-item:hover i {
+        /* Instagram specific hover */
+        .contact-item.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
             color: white;
+        }
+        .contact-item.instagram:hover i {
+            color: white;
+        }
+
+        /* Email specific hover */
+        .contact-item.email:hover {
+            background: #ea4335;
+            color: white;
+        }
+
+        /* Phone specific hover */
+        .contact-item.phone:hover {
+            background: #34b7f1;
+            color: white;
+        }
+
+        /* LinkedIn specific hover */
+        .contact-item.linkedin:hover {
+            background: #0077b5;
+            color: white;
+        }
+
+        /* WordPress specific hover */
+        .contact-item.wordpress:hover {
+            background: #21759b;
+            color: white;
+        }
+
+        .contact-item i {
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
         }
 
         footer {
@@ -411,6 +454,7 @@
             .hero-content h1 { font-size: 2.4rem; }
             .profile-img { width: 200px; height: 200px; }
             .nav-links a { margin-left: 16px; font-size: 0.85rem; }
+            .contact-item { padding: 10px 18px; font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -529,14 +573,29 @@
         </div>
     </section>
 
+    <!-- Contact Section with Facebook & Instagram -->
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Let's Connect</h2>
             <div class="contact-flex">
-                <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> hossainmdyasin2020@gmail.com</a>
-                <a href="tel:01601330337" class="contact-item"><i class="fas fa-phone-alt"></i> 01601330337</a>
-                <a href="https://mdyasinhossain111.wordpress.com" target="_blank" class="contact-item"><i class="fas fa-blog"></i> WordPress Portfolio</a>
-                <a href="https://www.linkedin.com/in/mdyasinhossain" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://www.facebook.com/Itz.YasinHBepari" target="_blank" class="contact-item facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://www.instagram.com/yasin_h_bepari/" target="_blank" class="contact-item instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.linkedin.com/in/mdyasinhossain" target="_blank" class="contact-item linkedin">
+                    <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
+                <a href="https://mdyasinhossain111.wordpress.com" target="_blank" class="contact-item wordpress">
+                    <i class="fab fa-wordpress"></i> WordPress
+                </a>
+                <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item email">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="tel:01601330337" class="contact-item phone">
+                    <i class="fas fa-phone-alt"></i> Call Me
+                </a>
             </div>
             <div style="margin-top: 40px; text-align: center; padding: 26px; background: #ede9fe; border-radius: 48px;">
                 <p style="font-weight: 500;">📍 Dhaka, Bangladesh — Open for <strong>Campus Ambassador & Marketing Roles</strong></p>
@@ -551,6 +610,7 @@
     </div>
 </footer>
 
+<!-- Admin Login Modal -->
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <h3>Admin Login</h3>
@@ -559,6 +619,7 @@
     </div>
 </div>
 
+<!-- Admin Panel Modal -->
 <div id="adminModal" class="modal">
     <div class="modal-content">
         <h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
