@@ -181,6 +181,24 @@
             transform: translateY(-3px);
         }
 
+        /* Download CV Button - NEW */
+        .btn-download {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 8px 14px -6px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px -8px rgba(16, 185, 129, 0.6);
+        }
+
         .hero-image {
             flex: 0.6;
             text-align: center;
@@ -352,7 +370,6 @@
             box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
         }
 
-        /* Facebook specific hover */
         .contact-item.facebook:hover {
             background: #1877f2;
             color: white;
@@ -361,7 +378,6 @@
             color: white;
         }
 
-        /* Instagram specific hover */
         .contact-item.instagram:hover {
             background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
             color: white;
@@ -370,25 +386,21 @@
             color: white;
         }
 
-        /* Email specific hover */
         .contact-item.email:hover {
             background: #ea4335;
             color: white;
         }
 
-        /* Phone specific hover */
         .contact-item.phone:hover {
             background: #34b7f1;
             color: white;
         }
 
-        /* LinkedIn specific hover */
         .contact-item.linkedin:hover {
             background: #0077b5;
             color: white;
         }
 
-        /* WordPress specific hover */
         .contact-item.wordpress:hover {
             background: #21759b;
             color: white;
@@ -484,6 +496,9 @@
                 <div class="btn-group">
                     <a href="#contact" class="btn-primary">Contact Me</a>
                     <a href="#newsfeed" class="btn-outline">Latest News</a>
+                    <a href="https://raw.githubusercontent.com/Md-Yasin-Hossain/my-portfolio/main/Md_Yasin_Hossain_Resume.pdf" download class="btn-download">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
                 </div>
             </div>
             <div class="hero-image">
@@ -573,7 +588,6 @@
         </div>
     </section>
 
-    <!-- Contact Section with Facebook & Instagram -->
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Let's Connect</h2>
@@ -610,7 +624,6 @@
     </div>
 </footer>
 
-<!-- Admin Login Modal -->
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <h3>Admin Login</h3>
@@ -619,7 +632,6 @@
     </div>
 </div>
 
-<!-- Admin Panel Modal -->
 <div id="adminModal" class="modal">
     <div class="modal-content">
         <h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
