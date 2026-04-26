@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="MD Yasin Hossain - Marketing Student & Campus Ambassador Portfolio with Newsfeed">
-    <title>MD Yasin Hossain | Portfolio + Newsfeed</title>
+    <meta name="description" content="MD Yasin Hossain - Marketing Student & Campus Ambassador Portfolio">
+    <title>MD Yasin Hossain | Marketing Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -22,6 +22,46 @@
             scroll-behavior: smooth;
         }
 
+        /* ========== ANIMATIONS & TRANSITIONS ========== */
+        
+        /* Page fade-in */
+        body {
+            animation: fadeInPage 0.8s ease-out;
+        }
+        
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Stagger children animations */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+        }
+        
+        .stagger-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -33,12 +73,12 @@
             backdrop-filter: blur(10px);
             border-radius: 32px;
             box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
         .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.2);
         }
 
         nav {
@@ -48,6 +88,11 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        nav:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         .nav-container {
@@ -66,6 +111,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            letter-spacing: 1px;
         }
 
         .nav-links a {
@@ -73,11 +124,28 @@
             color: #1e293b;
             font-weight: 500;
             margin-left: 32px;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
+            position: relative;
         }
-
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
         .nav-links a:hover {
             color: #764ba2;
+            transform: translateY(-2px);
         }
 
         .admin-btn {
@@ -89,11 +157,32 @@
             cursor: pointer;
             font-weight: 600;
             margin-left: 20px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-
+        
+        .admin-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .admin-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
         .admin-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
 
         .hero {
@@ -122,6 +211,12 @@
             font-weight: 600;
             color: #5b21b6;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-badge:hover {
+            transform: translateX(5px);
+            background: linear-gradient(120deg, #c7d2fe, #ddd6fe);
         }
 
         .hero-content h1 {
@@ -133,12 +228,25 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: slideInLeft 0.8s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .hero-content p {
             font-size: 1.2rem;
             color: #334155;
             margin-bottom: 28px;
+            animation: slideInLeft 0.8s ease-out 0.1s both;
         }
 
         .btn-group {
@@ -154,14 +262,31 @@
             border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: inline-block;
             box-shadow: 0 8px 14px -6px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 20px -8px rgba(102, 126, 234, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px -8px rgba(102, 126, 234, 0.6);
         }
 
         .btn-outline {
@@ -171,17 +296,31 @@
             border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
 
         .btn-outline:hover {
             background: #764ba2;
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
         }
 
         .hero-image {
             flex: 0.6;
             text-align: center;
+            animation: fadeInRight 0.8s ease-out;
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .profile-img {
@@ -192,6 +331,12 @@
             box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
             border: 4px solid white;
             background: #f1f5f9;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.3);
         }
 
         section {
@@ -215,6 +360,11 @@
             height: 4px;
             background: linear-gradient(90deg, #667eea, #f093fb);
             border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover:after {
+            width: 100%;
         }
 
         .grid-2col {
@@ -228,14 +378,27 @@
             border-radius: 28px;
             padding: 28px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            transition: all 0.25s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
         }
 
         .card h3 {
             font-size: 1.5rem;
             margin-bottom: 12px;
             color: #0f172a;
+            transition: color 0.3s;
+        }
+        
+        .card:hover h3 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .skill-tag {
@@ -247,9 +410,16 @@
             font-size: 0.85rem;
             font-weight: 500;
             color: #1e293b;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px) scale(1.05);
         }
 
-        /* Newsfeed Styles - Enhanced */
+        /* Newsfeed Styles */
         .newsfeed {
             background: white;
             border-radius: 28px;
@@ -263,29 +433,41 @@
             padding: 20px;
             margin-bottom: 24px;
             border-left: 4px solid #764ba2;
-            transition: all 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.6s ease-out;
         }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .news-item:hover {
-            transform: translateY(-2px);
+            transform: translateX(8px);
             background: #ffffff;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
+        
         .news-date {
             color: #764ba2;
             font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
+        
         .news-text {
             font-size: 1rem;
             color: #1e293b;
             line-height: 1.5;
             margin-bottom: 12px;
         }
+        
         .news-image {
             margin-top: 12px;
             border-radius: 20px;
@@ -294,84 +476,15 @@
             object-fit: cover;
             border-radius: 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
             cursor: pointer;
-            transition: 0.2s;
         }
+        
         .news-image:hover {
-            opacity: 0.95;
-            transform: scale(1.01);
-        }
-        .delete-news {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 5px 14px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            margin-top: 14px;
-            transition: 0.2s;
-        }
-        .delete-news:hover {
-            background: #dc2626;
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        /* Admin Panel Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 32px;
-            padding: 32px;
-            max-width: 550px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .modal-content input, .modal-content textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            font-family: inherit;
-            font-size: 0.95rem;
-        }
-        .modal-content label {
-            font-weight: 600;
-            margin-top: 12px;
-            display: block;
-            color: #0f172a;
-        }
-        .modal-content button {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            margin-top: 16px;
-            width: 100%;
-            font-weight: 600;
-        }
-        .hr-light {
-            margin: 20px 0;
-            border: 0;
-            height: 1px;
-            background: #e2e8f0;
-        }
         .contact-flex {
             display: flex;
             flex-wrap: wrap;
@@ -390,6 +503,18 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             text-decoration: none;
             color: #1e293b;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .contact-item:hover i {
+            color: white;
         }
 
         footer {
@@ -398,6 +523,53 @@
             text-align: center;
             padding: 32px 0;
             margin-top: 40px;
+            transition: all 0.3s;
+        }
+        
+        footer:hover {
+            background: #1e293b;
+        }
+
+        /* Modal animations */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
@@ -442,7 +614,7 @@
         </div>
     </section>
 
-    <section id="about" style="background: #f1f5f9;">
+    <section id="about" style="background: #f1f5f9;" class="reveal">
         <div class="container">
             <h2 class="section-title">Career Objective</h2>
             <div class="glass-card" style="padding: 40px; border-radius: 32px;">
@@ -454,12 +626,14 @@
     <section id="experience">
         <div class="container">
             <div class="grid-2col">
-                <div class="card"><h3>🎓 Education</h3>
+                <div class="card stagger-item">
+                    <h3>🎓 Education</h3>
                     <div style="margin-bottom: 24px;"><div class="meta">Bachelor of Business Administration (BBA), Marketing</div><p>University of Dhaka • 2nd Year, 2nd Semester</p></div>
                     <div style="margin-bottom: 24px;"><div class="meta">Higher Secondary Certificate (HSC)</div><p>Sobujbagh Govt. College • GPA: 5.00 • 2023 <br> <strong>🏆 Topper, Batch of 2023</strong></p></div>
                     <div><div class="meta">Secondary School Certificate (SSC)</div><p>Rajarbagh Police Lines School • GPA: 5.00 <br> <strong>🏆 Topper</strong></p></div>
                 </div>
-                <div class="card"><h3>💼 Professional Experience</h3>
+                <div class="card stagger-item">
+                    <h3>💼 Professional Experience</h3>
                     <div style="margin-bottom: 18px;"><div class="meta">Marketing Lecturer & Instructor</div><p>Paragon University Admission Coaching • 2024–Present</p></div>
                     <div style="margin-bottom: 18px;"><div class="meta">Marketing Instructor</div><p>Unique Coaching • 2025–Present</p></div>
                     <div style="margin-bottom: 18px;"><div class="meta">Marketing Instructor</div><p>Ignite Coaching • 2025–Present</p></div>
@@ -469,17 +643,14 @@
         </div>
     </section>
 
-    <!-- Newsfeed Section (with images support) -->
-    <section id="newsfeed" style="background: #ffffff;">
+    <section id="newsfeed" style="background: #ffffff;" class="reveal">
         <div class="container">
             <h2 class="section-title">📰 Latest News & Updates</h2>
-            <div id="newsfeedContainer" class="newsfeed">
-                <!-- dynamic news -->
-            </div>
+            <div id="newsfeedContainer" class="newsfeed"></div>
         </div>
     </section>
 
-    <section id="skills" style="background: #f8fafc;">
+    <section id="skills" style="background: #f8fafc;" class="reveal">
         <div class="container"><h2 class="section-title">Skills & Tools</h2>
             <div class="card" style="padding: 36px;"><div style="display: flex; flex-wrap: wrap; gap: 12px;">
                 <span class="skill-tag">Communication & Presentation</span><span class="skill-tag">Student Engagement</span><span class="skill-tag">Content Research</span>
@@ -490,7 +661,7 @@
         </div>
     </section>
 
-    <section id="contact"><div class="container"><h2 class="section-title">Let's Connect</h2>
+    <section id="contact" class="reveal"><div class="container"><h2 class="section-title">Let's Connect</h2>
         <div class="contact-flex">
             <a href="mailto:hossainmdyasin2020@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> hossainmdyasin2020@gmail.com</a>
             <a href="tel:01601330337" class="contact-item"><i class="fas fa-phone-alt"></i> 01601330337</a>
@@ -503,200 +674,117 @@
     </div></section>
 </main>
 
-<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart" style="color:#f43f5e;"></i> | Admin features: photo + news with images</p></div></footer>
+<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart" style="color:#f43f5e;"></i> | Smooth Animations</p></div></footer>
 
 <!-- Admin Login Modal -->
 <div id="loginModal" class="modal"><div class="modal-content"><h3>Admin Login</h3><input type="password" id="adminPassword" placeholder="Enter Password"><button onclick="checkAdminLogin()">Login</button></div></div>
 
-<!-- Enhanced Admin Panel with Image Upload for News -->
+<!-- Admin Panel -->
 <div id="adminModal" class="modal"><div class="modal-content">
     <h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
     <h4>📸 Change Profile Photo</h4>
     <input type="text" id="photoUrlInput" placeholder="Paste direct image URL (JPEG/PNG)">
     <button onclick="updateProfilePhoto()">Update Profile Photo</button>
-    <hr class="hr-light">
+    <hr style="margin: 20px 0;">
     <h4>📝 Add News Post (with optional image)</h4>
-    <label>📄 News Text</label>
     <textarea id="newsTextInput" rows="2" placeholder="Write your update here..."></textarea>
-    <label>🖼️ Image URL (optional)</label>
-    <input type="text" id="newsImageInput" placeholder="Paste image link (direct .jpg/.png) or leave empty">
+    <input type="text" id="newsImageInput" placeholder="Image URL (optional)">
     <button onclick="addNewsWithImage()">Publish News</button>
-    <hr class="hr-light">
-    <h4>🗑️ Manage News (edit/delete)</h4>
+    <hr style="margin: 20px 0;">
+    <h4>🗑️ Manage News</h4>
     <div id="adminNewsList"></div>
     <button onclick="closeAdminPanel()" style="background:#475569;">Close Panel</button>
 </div></div>
 
 <script>
-    // ---------- DATA STORAGE ----------
-    let newsItems = [];     // each item: { id, text, imageUrl, date }
+    let newsItems = [];
     let profilePhotoUrl = "";
 
-    // ---------- HELPERS ----------
     function loadData() {
         const savedNews = localStorage.getItem("yasinsNews_v2");
-        if(savedNews) {
-            newsItems = JSON.parse(savedNews);
-        } else {
-            // sample startup with image demo
-            newsItems = [
-                { id: Date.now(), text: "🎉 Excited to announce I'm looking for Campus Ambassador opportunities! Open to collaborations.", imageUrl: "", date: new Date().toLocaleDateString() },
-                { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback from students. Here's a moment from the session!", imageUrl: "https://picsum.photos/id/20/600/400", date: new Date().toLocaleDateString() }
-            ];
-            saveNews();
-        }
+        if(savedNews) newsItems = JSON.parse(savedNews);
+        else newsItems = [
+            { id: Date.now(), text: "🎉 Excited to announce I'm looking for Campus Ambassador opportunities!", imageUrl: "", date: new Date().toLocaleDateString() },
+            { id: Date.now()+1, text: "📚 Just completed a Marketing workshop! Great experience.", imageUrl: "", date: new Date().toLocaleDateString() }
+        ];
+        saveNews();
         
         const savedPhoto = localStorage.getItem("yasinsPhoto");
-        if(savedPhoto && savedPhoto !== "") {
-            profilePhotoUrl = savedPhoto;
-        } else {
-            profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
-        }
+        profilePhotoUrl = savedPhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
         document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
     }
     
-    function saveNews() {
-        localStorage.setItem("yasinsNews_v2", JSON.stringify(newsItems));
-    }
+    function saveNews() { localStorage.setItem("yasinsNews_v2", JSON.stringify(newsItems)); }
+    function savePhoto() { localStorage.setItem("yasinsPhoto", profilePhotoUrl); }
     
-    function savePhoto() {
-        localStorage.setItem("yasinsPhoto", profilePhotoUrl);
-    }
-    
-    // display on public newsfeed
     function displayNews() {
         const container = document.getElementById("newsfeedContainer");
-        if(!newsItems.length) {
-            container.innerHTML = '<div class="news-item"><p style="color:#64748b;">✨ No news yet. Use Admin panel to post updates!</p></div>';
-            return;
-        }
-        // show latest first (reverse)
+        if(!newsItems.length) { container.innerHTML = '<div class="news-item"><p>No news yet.</p></div>'; return; }
         const reversed = [...newsItems].reverse();
         container.innerHTML = reversed.map(item => `
-            <div class="news-item" id="news-${item.id}">
+            <div class="news-item">
                 <div class="news-date"><i class="far fa-calendar-alt"></i> ${item.date}</div>
                 <div class="news-text">${escapeHtml(item.text)}</div>
-                ${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" alt="news visual" onclick="window.open(this.src)">` : ''}
+                ${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" onclick="window.open(this.src)">` : ''}
             </div>
         `).join('');
     }
     
-    // helper to avoid XSS
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if(m === '&') return '&amp;';
-            if(m === '<') return '&lt;';
-            if(m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
     
-    // Admin: show news list with images + delete
     function displayAdminNews() {
         const container = document.getElementById("adminNewsList");
-        if(!newsItems.length) {
-            container.innerHTML = '<p style="color:#64748b;">No posts yet. Add your first news above.</p>';
-            return;
-        }
+        if(!newsItems.length) { container.innerHTML = '<p>No posts.</p>'; return; }
         const reversed = [...newsItems].reverse();
         container.innerHTML = reversed.map(item => `
-            <div style="border:1px solid #e2e8f0; border-radius:20px; padding:14px; margin-bottom:16px; background:#fff;">
-                <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:0.75rem; background:#ede9fe; padding:4px 10px; border-radius:40px;">${item.date}</span></div>
-                <p style="margin:12px 0; font-weight:500;">📝 ${escapeHtml(item.text)}</p>
-                ${item.imageUrl ? `<div style="margin:8px 0;"><img src="${item.imageUrl}" style="max-width:100%; max-height:140px; border-radius:16px; object-fit:cover;"></div>` : '<div style="font-size:0.7rem; color:#94a3b8;">📷 No image</div>'}
-                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 16px; border-radius:40px; margin-top:12px; cursor:pointer;">🗑️ Delete</button>
+            <div style="border:1px solid #e2e8f0; border-radius:20px; padding:14px; margin-bottom:16px;">
+                <p style="font-size:0.75rem; color:#764ba2;">${item.date}</p>
+                <p>${escapeHtml(item.text)}</p>
+                ${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%; max-height:100px; border-radius:12px;">` : ''}
+                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 16px; border-radius:40px; margin-top:10px; cursor:pointer;">Delete</button>
             </div>
         `).join('');
     }
     
-    // Add news with optional image URL
     function addNewsWithImage() {
         const text = document.getElementById("newsTextInput").value.trim();
-        if(text === "") {
-            alert("Please write something before publishing!");
-            return;
-        }
-        let imageUrl = document.getElementById("newsImageInput").value.trim();
-        // basic validation for URL if provided
-        if(imageUrl !== "" && !(imageUrl.startsWith("http://") || imageUrl.startsWith("https://"))) {
-            alert("Image URL must start with http:// or https:// (or leave empty).");
-            return;
-        }
-        const newNews = {
-            id: Date.now(),
-            text: text,
-            imageUrl: imageUrl,
-            date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
-        };
-        newsItems.push(newNews);
+        if(!text) { alert("Please write something!"); return; }
+        const imageUrl = document.getElementById("newsImageInput").value.trim();
+        newsItems.push({ id: Date.now(), text: text, imageUrl: imageUrl, date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) });
         saveNews();
         displayNews();
         displayAdminNews();
-        // clear inputs
         document.getElementById("newsTextInput").value = "";
         document.getElementById("newsImageInput").value = "";
-        alert("✅ News published successfully!");
+        alert("News published!");
     }
     
-    function deleteNews(id) {
-        if(confirm("Delete this news post permanently?")) {
-            newsItems = newsItems.filter(item => item.id !== id);
-            saveNews();
-            displayNews();
-            displayAdminNews();
-            alert("News deleted.");
-        }
-    }
+    function deleteNews(id) { if(confirm("Delete?")) { newsItems = newsItems.filter(item => item.id !== id); saveNews(); displayNews(); displayAdminNews(); } }
     
     function updateProfilePhoto() {
         let newUrl = document.getElementById("photoUrlInput").value.trim();
-        if(newUrl === "") {
-            alert("Please paste a valid direct image URL (ending in .jpg, .png or any direct link). Use Imgur or PostImage direct link.");
-            return;
-        }
-        if(!(newUrl.startsWith("http://") || newUrl.startsWith("https://"))) {
-            alert("URL must start with http:// or https://");
-            return;
-        }
-        profilePhotoUrl = newUrl;
-        savePhoto();
-        document.getElementById("profileImage").src = profilePhotoUrl;
-        alert("Profile photo updated! 🎉");
-        document.getElementById("photoUrlInput").value = "";
+        if(!newUrl) { alert("Paste a valid image URL!"); return; }
+        profilePhotoUrl = newUrl; savePhoto(); document.getElementById("profileImage").src = profilePhotoUrl; alert("Photo updated!");
     }
     
-    // modal logic
-    function openAdminLogin() {
-        document.getElementById("loginModal").style.display = "flex";
+    function openAdminLogin() { document.getElementById("loginModal").style.display = "flex"; }
+    function checkAdminLogin() { if(document.getElementById("adminPassword").value === "admin123") { document.getElementById("loginModal").style.display = "none"; document.getElementById("adminModal").style.display = "flex"; displayAdminNews(); } else alert("Wrong password! Use: admin123"); }
+    function closeAdminPanel() { document.getElementById("adminModal").style.display = "none"; }
+    window.onclick = function(event) { if(event.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none"; if(event.target === document.getElementById("adminModal")) document.getElementById("adminModal").style.display = "none"; }
+    
+    // Scroll reveal animation
+    function checkReveal() {
+        const reveals = document.querySelectorAll('.reveal, .stagger-item');
+        reveals.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if(rect.top < window.innerHeight - 100) el.classList.add('active');
+        });
     }
     
-    function checkAdminLogin() {
-        const pwd = document.getElementById("adminPassword").value;
-        if(pwd === "admin123") {
-            document.getElementById("loginModal").style.display = "none";
-            document.getElementById("adminModal").style.display = "flex";
-            displayAdminNews();
-            document.getElementById("adminPassword").value = "";
-        } else {
-            alert("Wrong password! Use: admin123");
-        }
-    }
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', checkReveal);
     
-    function closeAdminPanel() {
-        document.getElementById("adminModal").style.display = "none";
-    }
-    
-    window.onclick = function(event) {
-        const loginModal = document.getElementById("loginModal");
-        const adminModal = document.getElementById("adminModal");
-        if(event.target === loginModal) loginModal.style.display = "none";
-        if(event.target === adminModal) adminModal.style.display = "none";
-    }
-    
-    // initial load
     loadData();
 </script>
 </body>
