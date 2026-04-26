@@ -35,8 +35,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-            cursor: pointer;
+            transition: opacity 0.5s ease;
         }
         
         .welcome-card {
@@ -50,7 +49,6 @@
             box-shadow: 0 40px 70px rgba(0,0,0,0.3);
             animation: welcomeBounce 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
             border: 1px solid rgba(255,255,255,0.5);
-            cursor: default;
         }
         
         @keyframes welcomeBounce {
@@ -110,29 +108,12 @@
         .welcome-message {
             color: #475569;
             font-size: 0.95rem;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             line-height: 1.6;
         }
         
-        .welcome-dismiss {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        
-        .welcome-dismiss:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-        
         .welcome-timer {
-            margin-top: 18px;
+            margin-top: 15px;
             font-size: 0.75rem;
             color: #94a3b8;
         }
@@ -684,7 +665,7 @@
 </head>
 <body>
 
-<!-- WELCOME GREETING OVERLAY -->
+<!-- WELCOME GREETING OVERLAY - Auto disappears after 3 seconds -->
 <div id="welcomeOverlay" class="welcome-overlay">
     <div class="welcome-card">
         <div class="welcome-icon" id="welcomeIcon">👋</div>
@@ -692,8 +673,7 @@
         <div class="welcome-greeting" id="welcomeGreeting">Good afternoon!</div>
         <div class="welcome-name">MD Yasin Hossain</div>
         <div class="welcome-message">Thank you for visiting my portfolio. I'm a marketing student at University of Dhaka, passionate about brand ambassadorship and student engagement. Feel free to explore my work and connect with me!</div>
-        <button class="welcome-dismiss" id="getStartedBtn">Get Started →</button>
-        <div class="welcome-timer">Click "Get Started" or wait 3 seconds</div>
+        <div class="welcome-timer">✨ Welcome to my portfolio ✨</div>
     </div>
 </div>
 
@@ -812,14 +792,12 @@
 </div></div>
 
 <script>
-    // ========== WELCOME GREETING - FIXED ==========
+    // ========== WELCOME GREETING - AUTO DISMISS AFTER 3 SECONDS ==========
     function setWelcomeGreeting() {
         const now = new Date();
         const hours = now.getHours();
         const greetingElement = document.getElementById('welcomeGreeting');
         const iconElement = document.getElementById('welcomeIcon');
-        
-        console.log("Current hour (24h format):", hours); // For debugging
         
         if (hours >= 5 && hours < 12) {
             greetingElement.innerHTML = 'Good morning! ☀️';
@@ -840,39 +818,25 @@
         const overlay = document.getElementById('welcomeOverlay');
         if (overlay) {
             overlay.style.opacity = '0';
-            overlay.style.transition = 'opacity 0.5s ease';
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 500);
         }
     }
     
-    // Set the greeting based on real time
+    // Set greeting based on real time
     setWelcomeGreeting();
     
-    // Auto-dismiss after 3 seconds
-    let autoDismissTimer = setTimeout(function() {
+    // Auto dismiss after EXACTLY 3 seconds
+    setTimeout(function() {
         dismissWelcome();
     }, 3000);
     
-    // Get Started button click handler
-    const getStartedBtn = document.getElementById('getStartedBtn');
-    if (getStartedBtn) {
-        getStartedBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            clearTimeout(autoDismissTimer);
-            dismissWelcome();
-        });
-    }
-    
-    // Click on overlay background (but not on card) to dismiss
+    // Also dismiss if user clicks anywhere on the overlay (optional, but good UX)
     const welcomeOverlay = document.getElementById('welcomeOverlay');
     if (welcomeOverlay) {
-        welcomeOverlay.addEventListener('click', function(e) {
-            if (e.target === welcomeOverlay) {
-                clearTimeout(autoDismissTimer);
-                dismissWelcome();
-            }
+        welcomeOverlay.addEventListener('click', function() {
+            dismissWelcome();
         });
     }
     
@@ -911,4 +875,24 @@
         `).join('');
     }
     
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
+    
+    function displayAdminNews() {
+        const container = document.getElementById("adminNewsList");
+        if(!newsItems.length) { container.innerHTML = '<p>No posts.</p>'; return; }
+        const reversed = [...newsItems].reverse();
+        container.innerHTML = reversed.map(item => `
+            <div style="border:1px solid #e2e8f0; border-radius:20px; padding:14px; margin-bottom:16px;">
+                <p style="font-size:0.75rem; color:#764ba2;">${item.date}</p>
+                <p>${escapeHtml(item.text)}</p>
+                ${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%; max-height:100px; border-radius:12px;">` : ''}
+                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 16px; border-radius:40px; margin-top:10px; cursor:pointer;">Delete</button>
+            </div>
+        `).join('');
+    }
+    
+    function addNewsWithImage() {
+        const text = document.getElementById("newsTextInput").value.trim();
+        if(!text) { alert("Please write something!"); return; }
+        const imageUrl = document.getElementById("newsImageInput").value.trim();
+        newsItems.push({ id: Date.now(), text: text, imageUrl: imageUrl, date: new Date().toLocaleDate
