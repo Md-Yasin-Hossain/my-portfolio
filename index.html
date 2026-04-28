@@ -288,7 +288,6 @@
             overflow: hidden;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: default;
         }
 
         .interest-card:hover {
@@ -565,6 +564,7 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
             <a href="#interests">Interests</a>
             <a href="#newsfeed">Newsfeed</a>
             <a href="#contact">Contact</a>
@@ -589,7 +589,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img id="profileImage" src="" alt="MD Yasin Hossain" class="profile-img">
+                <img id="profileImage" src="https://placehold.co/600x600/667eea/white?text=MD+Yasin" alt="MD Yasin Hossain" class="profile-img">
                 <p style="margin-top: 12px; font-size: 0.8rem; color:#475569;"><i class="fas fa-camera"></i> MD Yasin Hossain</p>
             </div>
         </div>
@@ -646,7 +646,29 @@
         </div>
     </section>
 
-    <!-- NEW INTERESTS SECTION -->
+    <section id="skills" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">Skills & Tools</h2>
+            <div class="card" style="padding: 36px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    <span class="skill-tag">Communication & Presentation</span>
+                    <span class="skill-tag">Student Engagement</span>
+                    <span class="skill-tag">Content Research</span>
+                    <span class="skill-tag">Teamwork & Collaboration</span>
+                    <span class="skill-tag">Leadership & Coordination</span>
+                    <span class="skill-tag">Marketing Fundamentals</span>
+                    <span class="skill-tag">MS Office (Basic)</span>
+                    <span class="skill-tag">Adobe Photoshop (Basic)</span>
+                    <span class="skill-tag">WordPress (Basic)</span>
+                    <span class="skill-tag">Canva</span>
+                    <span class="skill-tag">Bengali (Native)</span>
+                    <span class="skill-tag">English (Fluent)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERESTS SECTION - After Skills -->
     <section id="interests" style="background: #ffffff;">
         <div class="container">
             <h2 class="section-title">🌟 Interests & Passions</h2>
@@ -730,28 +752,6 @@
         </div>
     </section>
 
-    <section id="skills" style="background: #f8fafc;">
-        <div class="container">
-            <h2 class="section-title">Skills & Tools</h2>
-            <div class="card" style="padding: 36px;">
-                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-                    <span class="skill-tag">Communication & Presentation</span>
-                    <span class="skill-tag">Student Engagement</span>
-                    <span class="skill-tag">Content Research</span>
-                    <span class="skill-tag">Teamwork & Collaboration</span>
-                    <span class="skill-tag">Leadership & Coordination</span>
-                    <span class="skill-tag">Marketing Fundamentals</span>
-                    <span class="skill-tag">MS Office (Basic)</span>
-                    <span class="skill-tag">Adobe Photoshop (Basic)</span>
-                    <span class="skill-tag">WordPress (Basic)</span>
-                    <span class="skill-tag">Canva</span>
-                    <span class="skill-tag">Bengali (Native)</span>
-                    <span class="skill-tag">English (Fluent)</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Let's Connect</h2>
@@ -816,7 +816,7 @@
 
 <script>
     let newsItems = [];
-    let profilePhotoUrl = "";
+    let profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
 
     function loadData() {
         const savedNews = localStorage.getItem("yasinsNews");
@@ -831,10 +831,8 @@
         }
         
         const savedPhoto = localStorage.getItem("yasinsPhoto");
-        if(savedPhoto) {
+        if(savedPhoto && savedPhoto !== "") {
             profilePhotoUrl = savedPhoto;
-        } else {
-            profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
         }
         
         document.getElementById("profileImage").src = profilePhotoUrl;
@@ -904,7 +902,3 @@
         document.getElementById("newsTextInput").value = "";
         document.getElementById("newsImageInput").value = "";
         alert("News published successfully!");
-    }
-    
-    function deleteNews(id) {
-        if(confirm("Are you sure you want
