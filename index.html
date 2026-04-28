@@ -181,7 +181,6 @@
             transform: translateY(-3px);
         }
 
-        /* Download CV Button - NEW */
         .btn-download {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
@@ -273,6 +272,92 @@
             font-weight: 600;
             font-size: 0.9rem;
             margin-bottom: 8px;
+        }
+
+        /* Interests Section Styles */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 20px;
+        }
+
+        .interest-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .interest-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .interest-card:hover .interest-image {
+            transform: scale(1.05);
+        }
+
+        .interest-content {
+            padding: 24px;
+        }
+
+        .interest-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .interest-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #1e293b, #4c1d95);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .interest-text {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .interest-text p {
+            margin-bottom: 12px;
+        }
+
+        .game-tags, .movie-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .game-tag, .movie-tag {
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #4c1d95;
+            transition: all 0.3s ease;
+        }
+
+        .game-tag:hover, .movie-tag:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
         }
 
         .skill-tag {
@@ -467,6 +552,7 @@
             .profile-img { width: 200px; height: 200px; }
             .nav-links a { margin-left: 16px; font-size: 0.85rem; }
             .contact-item { padding: 10px 18px; font-size: 0.85rem; }
+            .interest-image { height: 160px; }
         }
     </style>
 </head>
@@ -479,6 +565,7 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#experience">Experience</a>
+            <a href="#interests">Interests</a>
             <a href="#newsfeed">Newsfeed</a>
             <a href="#contact">Contact</a>
             <button class="admin-btn" onclick="openAdminLogin()">Admin</button>
@@ -553,6 +640,83 @@
                     <div style="margin-bottom: 18px;">
                         <div class="meta">Private Tutor</div>
                         <p>2022–Present — Teach marketing concepts, exam preparation, and boost confidence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW INTERESTS SECTION -->
+    <section id="interests" style="background: #ffffff;">
+        <div class="container">
+            <h2 class="section-title">🌟 Interests & Passions</h2>
+            <div class="interests-grid">
+                
+                <!-- Writing Card -->
+                <div class="interest-card">
+                    <img src="https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Writing" class="interest-image">
+                    <div class="interest-content">
+                        <div class="interest-icon">✍️</div>
+                        <h3 class="interest-title">Writing</h3>
+                        <div class="interest-text">
+                            <p>I love to write stories, fictions and poems. I had this passion since the Corona pandemic days. Till now I have written stories named <strong>"প্রত্যুবুঝি"</strong>, <strong>"Who Is Guilty"</strong>, <strong>"The Mystery of শন্তাইশপুর"</strong> etc. Some poems are <strong>"বিচ্ছেদ"</strong>, <strong>"ভালোবাসার কিছু ছন্দ"</strong>, <strong>"ক্যালেন্ডার"</strong> and so on. I am still working on bringing my imagination to life through words.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gaming Card -->
+                <div class="interest-card">
+                    <img src="https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Gaming" class="interest-image">
+                    <div class="interest-content">
+                        <div class="interest-icon">🎮</div>
+                        <h3 class="interest-title">Gaming</h3>
+                        <div class="interest-text">
+                            <p>As a passionate gamer, I spend my leisure time immersed in the virtual worlds of my favorite games. From conquering fierce foes in epic battles to solving intricate puzzles, gaming is my escape from everyday stress. My dedication to honing my skills has made me a formidable player.</p>
+                            <div class="game-tags">
+                                <span class="game-tag">Clash of Clans</span>
+                                <span class="game-tag">Total Football</span>
+                                <span class="game-tag">FIFA</span>
+                                <span class="game-tag">PES</span>
+                                <span class="game-tag">Counter Strike</span>
+                                <span class="game-tag">Real Cricket</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sports Card -->
+                <div class="interest-card">
+                    <img src="https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sports" class="interest-image">
+                    <div class="interest-content">
+                        <div class="interest-icon">⚽</div>
+                        <h3 class="interest-title">Sports</h3>
+                        <div class="interest-text">
+                            <p>I am a passionate sports person. I play many indoor and outdoor games. My favorites are Cricket, Football, Badminton, Pool, Swimming etc. I am good at batting at the top order as well as a part-time bowler. In football, I play as an attacking midfielder.</p>
+                            <div class="game-tags">
+                                <span class="game-tag">Cricket</span>
+                                <span class="game-tag">Football</span>
+                                <span class="game-tag">Badminton</span>
+                                <span class="game-tag">Swimming</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Movies & Streaming Card -->
+                <div class="interest-card">
+                    <img src="https://images.pexels.com/photos/7991228/pexels-photo-7991228.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Movies" class="interest-image">
+                    <div class="interest-content">
+                        <div class="interest-icon">🎬</div>
+                        <h3 class="interest-title">Movies & Streaming</h3>
+                        <div class="interest-text">
+                            <p>A true cinephile with an insatiable love for the silver screen. From Marvel Studios' action-packed universe to the intense world of John Wick, I'm captivated by cinema's ability to transport us. Suspense thrillers hold a special place in my heart, where gripping plots and mind-bending twists keep me at the edge of my seat.</p>
+                            <div class="movie-tags">
+                                <span class="movie-tag">Marvel</span>
+                                <span class="movie-tag">John Wick</span>
+                                <span class="movie-tag">Suspense Thrillers</span>
+                                <span class="movie-tag">Fan Theories</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -743,57 +907,4 @@
     }
     
     function deleteNews(id) {
-        if(confirm("Are you sure you want to delete this news?")) {
-            newsItems = newsItems.filter(item => item.id !== id);
-            saveNews();
-            displayNews();
-            displayAdminNews();
-            alert("News deleted!");
-        }
-    }
-    
-    function updateProfilePhoto() {
-        const newUrl = document.getElementById("photoUrlInput").value.trim();
-        if(newUrl === "") {
-            alert("Please paste a valid image URL!");
-            return;
-        }
-        
-        profilePhotoUrl = newUrl;
-        savePhoto();
-        document.getElementById("profileImage").src = profilePhotoUrl;
-        alert("Profile photo updated successfully!");
-        document.getElementById("photoUrlInput").value = "";
-    }
-    
-    function openAdminLogin() {
-        document.getElementById("loginModal").style.display = "flex";
-    }
-    
-    function checkAdminLogin() {
-        const password = document.getElementById("adminPassword").value;
-        if(password === "admin123") {
-            document.getElementById("loginModal").style.display = "none";
-            document.getElementById("adminModal").style.display = "flex";
-            displayAdminNews();
-            document.getElementById("adminPassword").value = "";
-        } else {
-            alert("Incorrect password! Use: admin123");
-        }
-    }
-    
-    function closeAdminPanel() {
-        document.getElementById("adminModal").style.display = "none";
-    }
-    
-    window.onclick = function(event) {
-        const loginModal = document.getElementById("loginModal");
-        const adminModal = document.getElementById("adminModal");
-        if(event.target === loginModal) loginModal.style.display = "none";
-        if(event.target === adminModal) adminModal.style.display = "none";
-    }
-    
-    loadData();
-</script>
-</body>
-</html>
+        if(confirm("Are you sure you want
