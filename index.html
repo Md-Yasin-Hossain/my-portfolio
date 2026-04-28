@@ -833,9 +833,11 @@
         const savedPhoto = localStorage.getItem("yasinsPhoto");
         if(savedPhoto && savedPhoto !== "") {
             profilePhotoUrl = savedPhoto;
+            document.getElementById("profileImage").src = profilePhotoUrl;
+        } else {
+            document.getElementById("profileImage").src = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
         }
         
-        document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
     }
     
@@ -854,13 +856,18 @@
             return;
         }
         
-        container.innerHTML = newsItems.slice().reverse().map(item => `
-            <div class="news-item">
-                <div class="news-date"><i class="far fa-calendar-alt"></i> ${item.date}</div>
-                <div class="news-text">${escapeHtml(item.text)}</div>
-                ${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" onclick="window.open(this.src)">` : ''}
-            </div>
-        `).join('');
+        let html = '';
+        for(let i = newsItems.length - 1; i >= 0; i--) {
+            const item = newsItems[i];
+            html += `
+                <div class="news-item">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> ${item.date}</div>
+                    <div class="news-text">${escapeHtml(item.text)}</div>
+                    ${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" onclick="window.open(this.src)">` : ''}
+                </div>
+            `;
+        }
+        container.innerHTML = html;
     }
     
     function displayAdminNews() {
@@ -870,35 +877,24 @@
             return;
         }
         
-        container.innerHTML = newsItems.slice().reverse().map(item => `
-            <div style="border:1px solid #e2e8f0; border-radius:16px; padding:12px; margin-bottom:12px;">
-                <p style="font-size:0.8rem; color:#764ba2;">${item.date}</p>
-                <p style="margin:8px 0;">${escapeHtml(item.text)}</p>
-                ${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%; max-height:100px; border-radius:12px;">` : ''}
-                <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:20px; cursor:pointer; margin-top:8px;">Delete</button>
-            </div>
-        `).join('');
+        let html = '';
+        for(let i = newsItems.length - 1; i >= 0; i--) {
+            const item = newsItems[i];
+            html += `
+                <div style="border:1px solid #e2e8f0; border-radius:16px; padding:12px; margin-bottom:12px;">
+                    <p style="font-size:0.8rem; color:#764ba2;">${item.date}</p>
+                    <p style="margin:8px 0;">${escapeHtml(item.text)}</p>
+                    ${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%; max-height:100px; border-radius:12px; margin-top:8px;">` : ''}
+                    <button onclick="deleteNews(${item.id})" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:20px; cursor:pointer; margin-top:8px;">Delete</button>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
     }
     
-    function addNews() {
-        const text = document.getElementById("newsTextInput").value.trim();
-        if(text === "") {
-            alert("Please write something before publishing!");
-            return;
-        }
-        const imageUrl = document.getElementById("newsImageInput").value.trim();
-        
-        const newNews = {
-            id: Date.now(),
-            text: text,
-            imageUrl: imageUrl,
-            date: new Date().toLocaleDateString()
-        };
-        
-        newsItems.push(newNews);
-        saveNews();
-        displayNews();
-        displayAdminNews();
-        document.getElementById("newsTextInput").value = "";
-        document.getElementById("newsImageInput").value = "";
-        alert("News published successfully!");
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+           
