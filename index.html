@@ -73,6 +73,8 @@
         .modal-content{background:white;border-radius:32px;padding:32px;max-width:550px;width:90%;max-height:85vh;overflow-y:auto;}
         .modal-content input,.modal-content textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #e2e8f0;border-radius:16px;font-family:inherit;}
         .modal-content button{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:12px 24px;border-radius:40px;cursor:pointer;margin-top:10px;width:100%;}
+        .edit-btn{background:#f59e0b;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;margin-right:8px;}
+        .delete-btn{background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;}
         @media (max-width:768px){.hero-content h1{font-size:2.4rem;}.profile-img{width:200px;height:200px;}}
     </style>
 </head>
@@ -190,8 +192,35 @@
 
 <footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Professional Portfolio</p></div></footer>
 
+<!-- Login Modal -->
 <div id="loginModal" class="modal"><div class="modal-content"><h3>Admin Login</h3><input type="password" id="adminPassword" placeholder="Password: admin123"><button onclick="checkAdminLogin()">Login</button></div></div>
-<div id="adminModal" class="modal"><div class="modal-content"><h3><i class="fas fa-cog"></i> Admin Dashboard</h3><h4>📸 Change Profile Photo</h4><input type="text" id="photoUrlInput" placeholder="Paste image URL"><button onclick="updateProfilePhoto()">Update Photo</button><hr><h4>📝 Add News Post</h4><textarea id="newsTextInput" rows="3" placeholder="Write news..."></textarea><input type="text" id="newsImageInput" placeholder="Image URL (optional)"><button onclick="addNews()">Publish News</button><hr><h4>🗑️ Manage News</h4><div id="adminNewsList"></div><button onclick="closeAdminPanel()" style="background:#475569;">Close Panel</button></div></div>
+
+<!-- Admin Panel with Edit Feature -->
+<div id="adminModal" class="modal"><div class="modal-content"><h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
+    <h4>📸 Change Profile Photo</h4>
+    <input type="text" id="photoUrlInput" placeholder="Paste image URL">
+    <button onclick="updateProfilePhoto()">Update Photo</button>
+    <hr>
+    <h4>📝 Add News Post</h4>
+    <textarea id="newsTextInput" rows="3" placeholder="Write your news here..."></textarea>
+    <input type="text" id="newsImageInput" placeholder="Image URL (optional)">
+    <button onclick="addNews()">Publish News</button>
+    <hr>
+    <h4>✏️ Edit / Delete News Posts</h4>
+    <div id="adminNewsList"></div>
+    <button onclick="closeAdminPanel()" style="background:#475569;">Close Panel</button>
+</div></div>
+
+<!-- Edit Post Modal -->
+<div id="editModal" class="modal"><div class="modal-content"><h3>✏️ Edit News Post</h3>
+    <input type="hidden" id="editPostId">
+    <label>📄 Text</label>
+    <textarea id="editText" rows="3" placeholder="Edit your news..."></textarea>
+    <label>🖼️ Image URL (optional)</label>
+    <input type="text" id="editImageUrl" placeholder="Paste image URL">
+    <button onclick="saveEdit()">Save Changes</button>
+    <button onclick="closeEditModal()" style="background:#64748b; margin-top:5px;">Cancel</button>
+</div></div>
 
 <script>
     let newsItems = [];
@@ -222,20 +251,64 @@
         let html = "";
         for(let i = newsItems.length-1; i >= 0; i--) {
             let item = newsItems[i];
-            html += `<div class="news-item"><div class="news-date">📅 ${item.date}</div><div class="news-text">${item.text}</div>${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" onclick="window.open(this.src)">` : ""}</div>`;
+            html += `<div class="news-item"><div class="news-date">📅 ${item.date}</div><div class="news-text">${escapeHtml(item.text)}</div>${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" onclick="window.open(this.src)">` : ""}</div>`;
         }
         container.innerHTML = html;
     }
     
     function displayAdminNews() {
         let container = document.getElementById("adminNewsList");
-        if(newsItems.length === 0) { container.innerHTML = "<p>No posts.</p>"; return; }
+        if(newsItems.length === 0) { container.innerHTML = "<p>No posts yet. Add your first news above.</p>"; return; }
         let html = "";
         for(let i = newsItems.length-1; i >= 0; i--) {
             let item = newsItems[i];
-            html += `<div style="border:1px solid #e2e8f0;border-radius:16px;padding:12px;margin-bottom:12px;"><p style="font-size:0.8rem;color:#764ba2;">${item.date}</p><p>${item.text}</p>${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%;max-height:80px;border-radius:8px;margin-top:8px;">` : ""}<button onclick="deleteNews(${item.id})" style="background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;margin-top:8px;">Delete</button></div>`;
+            html += `<div style="border:1px solid #e2e8f0;border-radius:16px;padding:12px;margin-bottom:12px;">
+                <p style="font-size:0.8rem;color:#764ba2;">${item.date}</p>
+                <p style="margin:8px 0;">${escapeHtml(item.text)}</p>
+                ${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%;max-height:80px;border-radius:8px;margin-top:8px;">` : ""}
+                <div style="margin-top:10px;">
+                    <button class="edit-btn" onclick="openEditModal(${item.id})"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="delete-btn" onclick="deleteNews(${item.id})"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>`;
         }
         container.innerHTML = html;
+    }
+    
+    function openEditModal(id) {
+        let post = newsItems.find(item => item.id === id);
+        if(post) {
+            document.getElementById("editPostId").value = post.id;
+            document.getElementById("editText").value = post.text;
+            document.getElementById("editImageUrl").value = post.imageUrl || "";
+            document.getElementById("editModal").style.display = "flex";
+        }
+    }
+    
+    function saveEdit() {
+        let id = parseInt(document.getElementById("editPostId").value);
+        let newText = document.getElementById("editText").value.trim();
+        let newImageUrl = document.getElementById("editImageUrl").value.trim();
+        
+        if(newText === "") { alert("Text cannot be empty!"); return; }
+        
+        let index = newsItems.findIndex(item => item.id === id);
+        if(index !== -1) {
+            newsItems[index].text = newText;
+            newsItems[index].imageUrl = newImageUrl;
+            saveNews();
+            displayNews();
+            displayAdminNews();
+            closeEditModal();
+            alert("Post updated successfully!");
+        }
+    }
+    
+    function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+        document.getElementById("editPostId").value = "";
+        document.getElementById("editText").value = "";
+        document.getElementById("editImageUrl").value = "";
     }
     
     function addNews() {
@@ -270,6 +343,15 @@
         document.getElementById("photoUrlInput").value = "";
     }
     
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
     function openAdminLogin() { document.getElementById("loginModal").style.display = "flex"; }
     function closeAdminPanel() { document.getElementById("adminModal").style.display = "none"; }
     
@@ -286,6 +368,7 @@
     window.onclick = function(e) {
         if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none";
         if(e.target === document.getElementById("adminModal")) document.getElementById("adminModal").style.display = "none";
+        if(e.target === document.getElementById("editModal")) closeEditModal();
     }
     
     loadData();
