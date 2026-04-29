@@ -58,7 +58,10 @@
         .news-item{background:#f8fafc;border-radius:24px;padding:20px;margin-bottom:24px;border-left:4px solid #764ba2;}
         .news-date{color:#764ba2;font-size:0.8rem;font-weight:600;margin-bottom:12px;}
         .news-text{font-size:1rem;color:#1e293b;margin-bottom:12px;}
-        .news-image{margin-top:12px;border-radius:20px;max-width:100%;max-height:320px;cursor:pointer;}
+        /* Multi-image gallery styles */
+        .news-gallery{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;}
+        .news-gallery-img{max-width:calc(33% - 8px);min-width:120px;flex:1 1 auto;border-radius:16px;object-fit:cover;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s;max-height:200px;}
+        .news-gallery-img:hover{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
         .contact-flex{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-bottom:30px;}
         .contact-item{background:white;padding:14px 24px;border-radius:60px;display:inline-flex;align-items:center;gap:12px;font-weight:500;text-decoration:none;color:#1e293b;transition:all 0.3s;}
         .contact-item:hover{transform:translateY(-5px);}
@@ -75,7 +78,8 @@
         .modal-content button{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:12px 24px;border-radius:40px;cursor:pointer;margin-top:10px;width:100%;}
         .edit-btn{background:#f59e0b;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;margin-right:8px;}
         .delete-btn{background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;}
-        @media (max-width:768px){.hero-content h1{font-size:2.4rem;}.profile-img{width:200px;height:200px;}}
+        .helper-note{font-size:0.75rem;color:#64748b;margin-top:5px;}
+        @media (max-width:768px){.hero-content h1{font-size:2.4rem;}.profile-img{width:200px;height:200px;}.news-gallery-img{max-width:calc(50% - 6px);}}
     </style>
 </head>
 <body>
@@ -190,20 +194,21 @@
     </section>
 </main>
 
-<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Professional Portfolio</p></div></footer>
+<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Professional Portfolio (Multi-Image Support)</p></div></footer>
 
 <!-- Login Modal -->
 <div id="loginModal" class="modal"><div class="modal-content"><h3>Admin Login</h3><input type="password" id="adminPassword" placeholder="Password: admin123"><button onclick="checkAdminLogin()">Login</button></div></div>
 
-<!-- Admin Panel with Edit Feature -->
+<!-- Admin Panel -->
 <div id="adminModal" class="modal"><div class="modal-content"><h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
     <h4>📸 Change Profile Photo</h4>
     <input type="text" id="photoUrlInput" placeholder="Paste image URL">
     <button onclick="updateProfilePhoto()">Update Photo</button>
     <hr>
-    <h4>📝 Add News Post</h4>
+    <h4>📝 Add News Post (Multiple Images Supported)</h4>
     <textarea id="newsTextInput" rows="3" placeholder="Write your news here..."></textarea>
-    <input type="text" id="newsImageInput" placeholder="Image URL (optional)">
+    <input type="text" id="newsImageInput" placeholder="Image URLs (separate with commas: url1, url2, url3)">
+    <div class="helper-note">💡 Tip: Paste multiple direct image URLs separated by commas. Example: https://i.imgur.com/1.jpg, https://i.imgur.com/2.jpg</div>
     <button onclick="addNews()">Publish News</button>
     <hr>
     <h4>✏️ Edit / Delete News Posts</h4>
@@ -211,13 +216,14 @@
     <button onclick="closeAdminPanel()" style="background:#475569;">Close Panel</button>
 </div></div>
 
-<!-- Edit Post Modal -->
+<!-- Edit Modal with multi-image support -->
 <div id="editModal" class="modal"><div class="modal-content"><h3>✏️ Edit News Post</h3>
     <input type="hidden" id="editPostId">
     <label>📄 Text</label>
     <textarea id="editText" rows="3" placeholder="Edit your news..."></textarea>
-    <label>🖼️ Image URL (optional)</label>
-    <input type="text" id="editImageUrl" placeholder="Paste image URL">
+    <label>🖼️ Image URLs (comma separated)</label>
+    <input type="text" id="editImageUrls" placeholder="url1.jpg, url2.jpg, url3.jpg">
+    <div class="helper-note">💡 Separate multiple image URLs with commas. Leave empty for no images.</div>
     <button onclick="saveEdit()">Save Changes</button>
     <button onclick="closeEditModal()" style="background:#64748b; margin-top:5px;">Cancel</button>
 </div></div>
@@ -227,12 +233,13 @@
     let profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
     
     function loadData() {
-        let savedNews = localStorage.getItem("yasinsNews");
-        if(savedNews) { newsItems = JSON.parse(savedNews); }
-        else {
+        let savedNews = localStorage.getItem("yasinsNewsV3");
+        if(savedNews) { 
+            newsItems = JSON.parse(savedNews); 
+        } else {
             newsItems = [
-                { id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities!", imageUrl: "", date: new Date().toLocaleDateString() },
-                { id: Date.now()+1, text: "📚 Completed a Marketing workshop!", imageUrl: "", date: new Date().toLocaleDateString() }
+                { id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities! Open to collaborations.", imageUrls: [], date: new Date().toLocaleDateString() },
+                { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback!", imageUrls: [], date: new Date().toLocaleDateString() }
             ];
             saveNews();
         }
@@ -242,8 +249,19 @@
         displayNews();
     }
     
-    function saveNews() { localStorage.setItem("yasinsNews", JSON.stringify(newsItems)); }
+    function saveNews() { localStorage.setItem("yasinsNewsV3", JSON.stringify(newsItems)); }
     function savePhoto() { localStorage.setItem("yasinsPhoto", profilePhotoUrl); }
+    
+    // Helper to split comma-separated image URLs and clean them
+    function parseImageUrls(inputStr) {
+        if(!inputStr || inputStr.trim() === "") return [];
+        let urls = inputStr.split(',').map(url => url.trim()).filter(url => url !== "");
+        return urls;
+    }
+    
+    function formatImageUrlsForEdit(urlsArray) {
+        return urlsArray.join(', ');
+    }
     
     function displayNews() {
         let container = document.getElementById("newsfeedContainer");
@@ -251,7 +269,21 @@
         let html = "";
         for(let i = newsItems.length-1; i >= 0; i--) {
             let item = newsItems[i];
-            html += `<div class="news-item"><div class="news-date">📅 ${item.date}</div><div class="news-text">${escapeHtml(item.text)}</div>${item.imageUrl ? `<img src="${item.imageUrl}" class="news-image" onclick="window.open(this.src)">` : ""}</div>`;
+            let galleryHtml = "";
+            if(item.imageUrls && item.imageUrls.length > 0) {
+                galleryHtml = `<div class="news-gallery">`;
+                for(let imgUrl of item.imageUrls) {
+                    if(imgUrl && imgUrl.startsWith("http")) {
+                        galleryHtml += `<img src="${imgUrl}" class="news-gallery-img" onclick="window.open(this.src)" loading="lazy">`;
+                    }
+                }
+                galleryHtml += `</div>`;
+            }
+            html += `<div class="news-item">
+                        <div class="news-date">📅 ${item.date}</div>
+                        <div class="news-text">${escapeHtml(item.text)}</div>
+                        ${galleryHtml}
+                    </div>`;
         }
         container.innerHTML = html;
     }
@@ -262,10 +294,19 @@
         let html = "";
         for(let i = newsItems.length-1; i >= 0; i--) {
             let item = newsItems[i];
+            let previewImages = "";
+            if(item.imageUrls && item.imageUrls.length > 0) {
+                previewImages = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">`;
+                for(let img of item.imageUrls.slice(0,2)) {
+                    previewImages += `<img src="${img}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;">`;
+                }
+                if(item.imageUrls.length > 2) previewImages += `<span style="font-size:12px;background:#e2e8f0;padding:4px 8px;border-radius:20px;">+${item.imageUrls.length-2}</span>`;
+                previewImages += `</div>`;
+            }
             html += `<div style="border:1px solid #e2e8f0;border-radius:16px;padding:12px;margin-bottom:12px;">
                 <p style="font-size:0.8rem;color:#764ba2;">${item.date}</p>
-                <p style="margin:8px 0;">${escapeHtml(item.text)}</p>
-                ${item.imageUrl ? `<img src="${item.imageUrl}" style="max-width:100%;max-height:80px;border-radius:8px;margin-top:8px;">` : ""}
+                <p style="margin:8px 0;">${escapeHtml(item.text.substring(0,100))}${item.text.length>100?'...':''}</p>
+                ${previewImages}
                 <div style="margin-top:10px;">
                     <button class="edit-btn" onclick="openEditModal(${item.id})"><i class="fas fa-edit"></i> Edit</button>
                     <button class="delete-btn" onclick="deleteNews(${item.id})"><i class="fas fa-trash"></i> Delete</button>
@@ -280,7 +321,7 @@
         if(post) {
             document.getElementById("editPostId").value = post.id;
             document.getElementById("editText").value = post.text;
-            document.getElementById("editImageUrl").value = post.imageUrl || "";
+            document.getElementById("editImageUrls").value = formatImageUrlsForEdit(post.imageUrls || []);
             document.getElementById("editModal").style.display = "flex";
         }
     }
@@ -288,14 +329,15 @@
     function saveEdit() {
         let id = parseInt(document.getElementById("editPostId").value);
         let newText = document.getElementById("editText").value.trim();
-        let newImageUrl = document.getElementById("editImageUrl").value.trim();
+        let rawUrls = document.getElementById("editImageUrls").value.trim();
+        let newImageUrls = parseImageUrls(rawUrls);
         
         if(newText === "") { alert("Text cannot be empty!"); return; }
         
         let index = newsItems.findIndex(item => item.id === id);
         if(index !== -1) {
             newsItems[index].text = newText;
-            newsItems[index].imageUrl = newImageUrl;
+            newsItems[index].imageUrls = newImageUrls;
             saveNews();
             displayNews();
             displayAdminNews();
@@ -308,20 +350,27 @@
         document.getElementById("editModal").style.display = "none";
         document.getElementById("editPostId").value = "";
         document.getElementById("editText").value = "";
-        document.getElementById("editImageUrl").value = "";
+        document.getElementById("editImageUrls").value = "";
     }
     
     function addNews() {
         let text = document.getElementById("newsTextInput").value.trim();
         if(text === "") { alert("Write something!"); return; }
-        let imageUrl = document.getElementById("newsImageInput").value.trim();
-        newsItems.push({ id: Date.now(), text: text, imageUrl: imageUrl, date: new Date().toLocaleDateString() });
+        let rawUrls = document.getElementById("newsImageInput").value.trim();
+        let imageUrls = parseImageUrls(rawUrls);
+        
+        newsItems.push({ 
+            id: Date.now(), 
+            text: text, 
+            imageUrls: imageUrls, 
+            date: new Date().toLocaleDateString() 
+        });
         saveNews();
         displayNews();
         displayAdminNews();
         document.getElementById("newsTextInput").value = "";
         document.getElementById("newsImageInput").value = "";
-        alert("News published!");
+        alert("News published with " + imageUrls.length + " image(s)!");
     }
     
     function deleteNews(id) {
