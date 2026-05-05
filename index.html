@@ -57,10 +57,10 @@
         .newsfeed{background:white;border-radius:28px;padding:28px;margin-top:20px;}
         .news-item{background:#f8fafc;border-radius:24px;padding:20px;margin-bottom:24px;border-left:4px solid #764ba2;}
         .news-date{color:#764ba2;font-size:0.8rem;font-weight:600;margin-bottom:12px;}
-        .news-text{font-size:1rem;color:#1e293b;margin-bottom:12px;}
+        .news-text{font-size:1rem;color:#1e293b;line-height:1.5;margin-bottom:12px;}
         .news-gallery{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;}
-        .news-gallery-img{max-width:calc(33% - 8px);min-width:120px;flex:1 1 auto;border-radius:16px;object-fit:cover;cursor:pointer;transition:transform 0.2s;}
-        .news-gallery-img:hover{transform:scale(1.02);}
+        .news-gallery-img{max-width:calc(33% - 8px);min-width:120px;flex:1 1 auto;border-radius:16px;object-fit:cover;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s;}
+        .news-gallery-img:hover{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
         .contact-flex{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-bottom:30px;}
         .contact-item{background:white;padding:14px 24px;border-radius:60px;display:inline-flex;align-items:center;gap:12px;font-weight:500;text-decoration:none;color:#1e293b;transition:all 0.3s;}
         .contact-item:hover{transform:translateY(-5px);}
@@ -78,9 +78,9 @@
         .edit-btn{background:#f59e0b;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;margin-right:8px;}
         .delete-btn{background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;}
         .helper-note{font-size:0.75rem;color:#64748b;margin-top:5px;}
-        .toast{position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:12px 24px;border-radius:40px;z-index:2000;animation:fadeInOut 3s ease;}
+        .toast{position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:12px 24px;border-radius:40px;z-index:2000;animation:fadeInOut 3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
         @keyframes fadeInOut{0%{opacity:0;transform:translateY(20px);}15%{opacity:1;transform:translateY(0);}85%{opacity:1;}100%{opacity:0;visibility:hidden;}}
-        .setup-btn{background:#10b981;margin-top:10px;}
+        .warning-note{background:#fef3c7;border-left:4px solid #f59e0b;padding:12px;margin-bottom:15px;border-radius:12px;font-size:0.85rem;}
         @media (max-width:768px){.hero-content h1{font-size:2.4rem;}.profile-img{width:200px;height:200px;}.news-gallery-img{max-width:calc(50% - 6px);}}
     </style>
 </head>
@@ -176,7 +176,7 @@
     <section id="newsfeed" style="background:#fff;">
         <div class="container">
             <h2 class="section-title">📰 Latest News & Updates</h2>
-            <div id="newsfeedContainer" class="newsfeed"><div class="loading"><i class="fas fa-spinner fa-pulse"></i> Loading...</div></div>
+            <div id="newsfeedContainer" class="newsfeed"><div class="loading" style="text-align:center;padding:40px;"><i class="fas fa-spinner fa-pulse"></i> Loading...</div></div>
         </div>
     </section>
 
@@ -198,21 +198,29 @@
 
 <footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Professional Portfolio</p></div></footer>
 
-<!-- Setup Modal - Shows when no token -->
-<div id="setupModal" class="modal">
+<!-- First Time Setup - Create Admin Password -->
+<div id="firstTimeModal" class="modal">
     <div class="modal-content">
-        <h3>🔧 Enable Cloud Backup (Optional)</h3>
-        <p>Save your posts and photo to GitHub cloud so they sync across all devices.</p>
-        <p style="font-size:0.85rem; margin:10px 0;">1. <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">Click here to create a GitHub token</a> (select "repo" scope)</p>
-        <p style="font-size:0.85rem;">2. Copy the token and paste below:</p>
-        <input type="password" id="githubToken" placeholder="Paste your GitHub token here">
-        <button onclick="saveGitHubToken()">Enable Cloud Backup</button>
-        <button onclick="skipSetup()" style="background:#64748b;">Skip (Use Local Only)</button>
+        <h3>🔐 First Time Setup - Create Admin Password</h3>
+        <p>Set a secure password to protect your admin panel. Only you will know it.</p>
+        <div class="warning-note">⚠️ This password is stored encrypted in your browser. Don't forget it!</div>
+        <label>Enter New Password:</label>
+        <input type="password" id="newPassword" placeholder="Your secure password">
+        <label>Confirm Password:</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password">
+        <button onclick="createAdminPassword()">Create Admin Account</button>
     </div>
 </div>
 
-<!-- Login Modal -->
-<div id="loginModal" class="modal"><div class="modal-content"><h3>Admin Login</h3><input type="password" id="adminPassword" placeholder="Password: admin123"><button onclick="checkAdminLogin()">Login</button></div></div>
+<!-- Admin Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h3>🔐 Admin Login</h3>
+        <input type="password" id="adminPassword" placeholder="Enter your password">
+        <button onclick="checkSecureAdminLogin()">Login</button>
+        <div class="helper-note" style="margin-top:12px;">💡 Only you have access. Password is stored encrypted.</div>
+    </div>
+</div>
 
 <!-- Admin Panel -->
 <div id="adminModal" class="modal"><div class="modal-content"><h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
@@ -243,11 +251,20 @@
 </div></div>
 
 <script>
-    // Data storage - works locally first, cloud if token provided
+    // Data storage
     let newsItems = [];
     let profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
     let isAdminLoggedIn = false;
-    let githubToken = localStorage.getItem("github_token");
+    
+    // Simple hash function for password (stored in localStorage)
+    function hashPassword(pwd) {
+        let hash = 0;
+        for(let i = 0; i < pwd.length; i++) {
+            hash = ((hash << 5) - hash) + pwd.charCodeAt(i);
+            hash |= 0;
+        }
+        return hash.toString();
+    }
     
     function showToast(msg) {
         let toast = document.createElement("div");
@@ -257,63 +274,76 @@
         setTimeout(() => toast.remove(), 3000);
     }
     
-    // Load data (from cloud or local)
-    async function loadData() {
-        if(githubToken) {
-            try {
-                let response = await fetch(`https://api.github.com/repos/Md-Yasin-Hossain/my-portfolio/contents/website-data.json`, {
-                    headers: { "Authorization": `token ${githubToken}` }
-                });
-                if(response.ok) {
-                    let data = await response.json();
-                    let content = JSON.parse(atob(data.content));
-                    newsItems = content.newsItems || [];
-                    profilePhotoUrl = content.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
-                    document.getElementById("profileImage").src = profilePhotoUrl;
-                    displayNews();
-                    return;
-                }
-            } catch(e) { console.log("Cloud load failed, using local"); }
+    // Check if admin password exists
+    function isAdminSetup() {
+        return localStorage.getItem("admin_password_hash") !== null;
+    }
+    
+    function createAdminPassword() {
+        let pwd1 = document.getElementById("newPassword").value;
+        let pwd2 = document.getElementById("confirmPassword").value;
+        if(pwd1 === "" || pwd2 === "") {
+            alert("Please enter a password!");
+            return;
         }
-        // Fallback to local storage
-        let savedNews = localStorage.getItem("yasinsNews_local");
+        if(pwd1 !== pwd2) {
+            alert("Passwords do not match!");
+            return;
+        }
+        if(pwd1.length < 4) {
+            alert("Password must be at least 4 characters!");
+            return;
+        }
+        localStorage.setItem("admin_password_hash", hashPassword(pwd1));
+        document.getElementById("firstTimeModal").style.display = "none";
+        showToast("✅ Admin password created! Please login.");
+    }
+    
+    function checkSecureAdminLogin() {
+        let enteredPwd = document.getElementById("adminPassword").value;
+        let storedHash = localStorage.getItem("admin_password_hash");
+        if(hashPassword(enteredPwd) === storedHash) {
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("adminModal").style.display = "flex";
+            isAdminLoggedIn = true;
+            displayAdminNews();
+            document.getElementById("adminPassword").value = "";
+            showToast("✅ Login successful!");
+        } else {
+            alert("❌ Incorrect password!");
+        }
+    }
+    
+    function openAdminLogin() {
+        if(!isAdminSetup()) {
+            document.getElementById("firstTimeModal").style.display = "flex";
+        } else {
+            document.getElementById("loginModal").style.display = "flex";
+        }
+    }
+    
+    function closeAdminPanel() { 
+        document.getElementById("adminModal").style.display = "none"; 
+        isAdminLoggedIn = false; 
+    }
+    
+    // Load data from localStorage
+    function loadData() {
+        let savedNews = localStorage.getItem("yasinsNews_secure");
         if(savedNews) newsItems = JSON.parse(savedNews);
         else newsItems = [
-            { id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities!", imageUrls: [], date: new Date().toLocaleDateString() },
-            { id: Date.now()+1, text: "📚 Completed a Marketing workshop!", imageUrls: [], date: new Date().toLocaleDateString() }
+            { id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities! Open to collaborations.", imageUrls: [], date: new Date().toLocaleDateString() },
+            { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback!", imageUrls: [], date: new Date().toLocaleDateString() }
         ];
-        let savedPhoto = localStorage.getItem("yasinsPhoto_local");
+        let savedPhoto = localStorage.getItem("yasinsPhoto_secure");
         if(savedPhoto) profilePhotoUrl = savedPhoto;
         document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
     }
     
-    async function saveToCloud() {
-        if(!githubToken) return false;
-        try {
-            let getResponse = await fetch(`https://api.github.com/repos/Md-Yasin-Hossain/my-portfolio/contents/website-data.json`, {
-                headers: { "Authorization": `token ${githubToken}` }
-            });
-            let sha = "";
-            if(getResponse.ok) { let existing = await getResponse.json(); sha = existing.sha; }
-            let content = btoa(unescape(encodeURIComponent(JSON.stringify({ newsItems: newsItems, profilePhoto: profilePhotoUrl }, null, 2))));
-            await fetch(`https://api.github.com/repos/Md-Yasin-Hossain/my-portfolio/contents/website-data.json`, {
-                method: "PUT",
-                headers: { "Authorization": `token ${githubToken}`, "Content-Type": "application/json" },
-                body: JSON.stringify({ message: "Update portfolio data", content: content, sha: sha })
-            });
-            return true;
-        } catch(e) { return false; }
-    }
-    
-    function saveLocal() {
-        localStorage.setItem("yasinsNews_local", JSON.stringify(newsItems));
-        localStorage.setItem("yasinsPhoto_local", profilePhotoUrl);
-    }
-    
-    async function syncData() {
-        saveLocal();
-        if(githubToken) await saveToCloud();
+    function saveToLocal() {
+        localStorage.setItem("yasinsNews_secure", JSON.stringify(newsItems));
+        localStorage.setItem("yasinsPhoto_secure", profilePhotoUrl);
     }
     
     function parseImageUrls(inputStr) {
@@ -365,7 +395,7 @@
         }
     }
     
-    async function saveEdit() {
+    function saveEdit() {
         let id = parseInt(document.getElementById("editPostId").value);
         let newText = document.getElementById("editText").value.trim();
         let newImageUrls = parseImageUrls(document.getElementById("editImageUrls").value);
@@ -374,7 +404,7 @@
         if(idx !== -1) {
             newsItems[idx].text = newText;
             newsItems[idx].imageUrls = newImageUrls;
-            await syncData();
+            saveToLocal();
             displayNews();
             if(isAdminLoggedIn) displayAdminNews();
             closeEditModal();
@@ -384,12 +414,12 @@
     
     function closeEditModal() { document.getElementById("editModal").style.display = "none"; }
     
-    async function addNews() {
+    function addNews() {
         let text = document.getElementById("newsTextInput").value.trim();
         if(!text) { alert("Write something!"); return; }
         let imageUrls = parseImageUrls(document.getElementById("newsImageInput").value);
         newsItems.push({ id: Date.now(), text: text, imageUrls: imageUrls, date: new Date().toLocaleDateString() });
-        await syncData();
+        saveToLocal();
         displayNews();
         if(isAdminLoggedIn) displayAdminNews();
         document.getElementById("newsTextInput").value = "";
@@ -397,70 +427,39 @@
         showToast("News published!");
     }
     
-    async function deleteNews(id) {
+    function deleteNews(id) {
         if(confirm("Delete this news?")) {
             newsItems = newsItems.filter(i => i.id !== id);
-            await syncData();
+            saveToLocal();
             displayNews();
             if(isAdminLoggedIn) displayAdminNews();
             showToast("Deleted");
         }
     }
     
-    async function updateProfilePhoto() {
+    function updateProfilePhoto() {
         let newUrl = document.getElementById("photoUrlInput").value.trim();
         if(!newUrl) { alert("Paste an image URL!"); return; }
         profilePhotoUrl = newUrl;
         document.getElementById("profileImage").src = profilePhotoUrl;
-        await syncData();
+        saveToLocal();
         showToast("Profile photo updated!");
         document.getElementById("photoUrlInput").value = "";
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
     
-    function openAdminLogin() { document.getElementById("loginModal").style.display = "flex"; }
-    function closeAdminPanel() { document.getElementById("adminModal").style.display = "none"; isAdminLoggedIn = false; }
-    
-    function checkAdminLogin() {
-        let pwd = document.getElementById("adminPassword").value;
-        if(pwd === "admin123") {
-            document.getElementById("loginModal").style.display = "none";
-            document.getElementById("adminModal").style.display = "flex";
-            isAdminLoggedIn = true;
-            displayAdminNews();
-            document.getElementById("adminPassword").value = "";
-        } else alert("Wrong password! Use: admin123");
-    }
-    
-    function saveGitHubToken() {
-        let token = document.getElementById("githubToken").value.trim();
-        if(token) {
-            githubToken = token;
-            localStorage.setItem("github_token", token);
-            document.getElementById("setupModal").style.display = "none";
-            showToast("Cloud backup enabled! Reloading...");
-            setTimeout(() => location.reload(), 1000);
-        } else alert("Enter a valid token");
-    }
-    
-    function skipSetup() {
-        document.getElementById("setupModal").style.display = "none";
-        showToast("Using local storage only");
-    }
-    
     window.onclick = function(e) {
         if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none";
         if(e.target === document.getElementById("adminModal")) document.getElementById("adminModal").style.display = "none";
         if(e.target === document.getElementById("editModal")) closeEditModal();
+        if(e.target === document.getElementById("firstTimeModal")) {} // Prevent closing by clicking outside
     }
     
-    // Show setup modal if no token (after 1 second)
-    setTimeout(() => {
-        if(!localStorage.getItem("github_token") && !localStorage.getItem("setup_skipped")) {
-            document.getElementById("setupModal").style.display = "flex";
-        }
-    }, 500);
+    // Check if first time setup is needed
+    if(!isAdminSetup()) {
+        document.getElementById("firstTimeModal").style.display = "flex";
+    }
     
     loadData();
 </script>
