@@ -80,7 +80,7 @@
         .helper-note{font-size:0.75rem;color:#64748b;margin-top:5px;}
         .toast{position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:12px 24px;border-radius:40px;z-index:2000;animation:fadeInOut 3s ease;}
         @keyframes fadeInOut{0%{opacity:0;transform:translateY(20px);}15%{opacity:1;transform:translateY(0);}85%{opacity:1;}100%{opacity:0;visibility:hidden;}}
-        .loading{text-align:center;padding:40px;color:#764ba2;}
+        .setup-btn{background:#10b981;margin-top:10px;}
         @media (max-width:768px){.hero-content h1{font-size:2.4rem;}.profile-img{width:200px;height:200px;}.news-gallery-img{max-width:calc(50% - 6px);}}
     </style>
 </head>
@@ -196,15 +196,20 @@
     </section>
 </main>
 
-<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | GitHub Backend Enabled</p></div></footer>
+<footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Professional Portfolio</p></div></footer>
 
-<!-- Setup Modal (First Time) -->
-<div id="setupModal" class="modal"><div class="modal-content"><h3>🔧 First Time Setup</h3><p>To enable cloud storage, enter your GitHub token:</p>
-    <input type="password" id="githubToken" placeholder="GitHub Personal Access Token">
-    <div class="helper-note">🔑 <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">Click here to create a token</a> (select "repo" scope)</div>
-    <button onclick="saveGitHubToken()">Save & Continue</button>
-    <hr><button onclick="skipSetup()" style="background:#64748b;">Skip (Use Local Storage Only)</button>
-</div></div>
+<!-- Setup Modal - Shows when no token -->
+<div id="setupModal" class="modal">
+    <div class="modal-content">
+        <h3>🔧 Enable Cloud Backup (Optional)</h3>
+        <p>Save your posts and photo to GitHub cloud so they sync across all devices.</p>
+        <p style="font-size:0.85rem; margin:10px 0;">1. <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">Click here to create a GitHub token</a> (select "repo" scope)</p>
+        <p style="font-size:0.85rem;">2. Copy the token and paste below:</p>
+        <input type="password" id="githubToken" placeholder="Paste your GitHub token here">
+        <button onclick="saveGitHubToken()">Enable Cloud Backup</button>
+        <button onclick="skipSetup()" style="background:#64748b;">Skip (Use Local Only)</button>
+    </div>
+</div>
 
 <!-- Login Modal -->
 <div id="loginModal" class="modal"><div class="modal-content"><h3>Admin Login</h3><input type="password" id="adminPassword" placeholder="Password: admin123"><button onclick="checkAdminLogin()">Login</button></div></div>
@@ -218,7 +223,7 @@
     <h4>📝 Add News Post (Multiple Images)</h4>
     <textarea id="newsTextInput" rows="3" placeholder="Write your news here..."></textarea>
     <input type="text" id="newsImageInput" placeholder="Image URLs (comma separated)">
-    <div class="helper-note">💡 Tip: Separate multiple image URLs with commas</div>
+    <div class="helper-note">💡 Tip: Separate multiple image URLs with commas. Example: url1.jpg, url2.jpg</div>
     <button onclick="addNews()">Publish News</button>
     <hr>
     <h4>✏️ Edit / Delete News Posts</h4>
@@ -238,16 +243,11 @@
 </div></div>
 
 <script>
-    // GitHub Configuration
-    const REPO_OWNER = "Md-Yasin-Hossain";
-    const REPO_NAME = "my-portfolio";
-    const DATA_FILE = "website-data.json";
-    const GITHUB_API = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${DATA_FILE}`;
-    
-    let githubToken = localStorage.getItem("github_token");
+    // Data storage - works locally first, cloud if token provided
     let newsItems = [];
     let profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
     let isAdminLoggedIn = false;
+    let githubToken = localStorage.getItem("github_token");
     
     function showToast(msg) {
         let toast = document.createElement("div");
@@ -257,71 +257,69 @@
         setTimeout(() => toast.remove(), 3000);
     }
     
-    async function loadFromGitHub() {
-        if(!githubToken) { document.getElementById("setupModal").style.display = "flex"; return false; }
-        try {
-            let response = await fetch(GITHUB_API, { headers: { "Authorization": `token ${githubToken}`, "Accept": "application/vnd.github.v3+json" } });
-            if(response.status === 404) { await saveToGitHub({ newsItems: [], profilePhoto: profilePhotoUrl }); return await loadFromGitHub(); }
-            if(!response.ok) throw new Error("Failed to load");
-            let data = await response.json();
-            let content = JSON.parse(atob(data.content));
-            newsItems = content.newsItems || [];
-            profilePhotoUrl = content.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
-            document.getElementById("profileImage").src = profilePhotoUrl;
-            return true;
-        } catch(e) { console.error(e); showToast("⚠️ Using local backup"); return false; }
-    }
-    
-    async function saveToGitHub(data) {
-        if(!githubToken) return false;
-        try {
-            let sha = "";
-            let getResponse = await fetch(GITHUB_API, { headers: { "Authorization": `token ${githubToken}` } });
-            if(getResponse.ok) { let existing = await getResponse.json(); sha = existing.sha; }
-            let content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-            let response = await fetch(GITHUB_API, { method: "PUT", headers: { "Authorization": `token ${githubToken}`, "Content-Type": "application/json" }, body: JSON.stringify({ message: "Update website data", content: content, sha: sha }) });
-            if(response.ok) { showToast("✅ Saved to cloud!"); return true; }
-        } catch(e) { console.error(e); }
-        return false;
-    }
-    
-    function saveGitHubToken() {
-        let token = document.getElementById("githubToken").value.trim();
-        if(token) { githubToken = token; localStorage.setItem("github_token", token); document.getElementById("setupModal").style.display = "none"; showToast("Token saved! Reloading..."); setTimeout(() => location.reload(), 1000); }
-        else alert("Enter a valid token");
-    }
-    
-    function skipSetup() { document.getElementById("setupModal").style.display = "none"; showToast("Using local storage only"); loadLocalBackup(); displayNews(); }
-    
-    function loadLocalBackup() {
-        let savedNews = localStorage.getItem("yasinsNewsV3_backup");
+    // Load data (from cloud or local)
+    async function loadData() {
+        if(githubToken) {
+            try {
+                let response = await fetch(`https://api.github.com/repos/Md-Yasin-Hossain/my-portfolio/contents/website-data.json`, {
+                    headers: { "Authorization": `token ${githubToken}` }
+                });
+                if(response.ok) {
+                    let data = await response.json();
+                    let content = JSON.parse(atob(data.content));
+                    newsItems = content.newsItems || [];
+                    profilePhotoUrl = content.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
+                    document.getElementById("profileImage").src = profilePhotoUrl;
+                    displayNews();
+                    return;
+                }
+            } catch(e) { console.log("Cloud load failed, using local"); }
+        }
+        // Fallback to local storage
+        let savedNews = localStorage.getItem("yasinsNews_local");
         if(savedNews) newsItems = JSON.parse(savedNews);
         else newsItems = [
             { id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities!", imageUrls: [], date: new Date().toLocaleDateString() },
             { id: Date.now()+1, text: "📚 Completed a Marketing workshop!", imageUrls: [], date: new Date().toLocaleDateString() }
         ];
-        let savedPhoto = localStorage.getItem("yasinsPhoto_backup");
+        let savedPhoto = localStorage.getItem("yasinsPhoto_local");
         if(savedPhoto) profilePhotoUrl = savedPhoto;
         document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
     }
     
-    function saveLocalBackup() {
-        localStorage.setItem("yasinsNewsV3_backup", JSON.stringify(newsItems));
-        localStorage.setItem("yasinsPhoto_backup", profilePhotoUrl);
+    async function saveToCloud() {
+        if(!githubToken) return false;
+        try {
+            let getResponse = await fetch(`https://api.github.com/repos/Md-Yasin-Hossain/my-portfolio/contents/website-data.json`, {
+                headers: { "Authorization": `token ${githubToken}` }
+            });
+            let sha = "";
+            if(getResponse.ok) { let existing = await getResponse.json(); sha = existing.sha; }
+            let content = btoa(unescape(encodeURIComponent(JSON.stringify({ newsItems: newsItems, profilePhoto: profilePhotoUrl }, null, 2))));
+            await fetch(`https://api.github.com/repos/Md-Yasin-Hossain/my-portfolio/contents/website-data.json`, {
+                method: "PUT",
+                headers: { "Authorization": `token ${githubToken}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ message: "Update portfolio data", content: content, sha: sha })
+            });
+            return true;
+        } catch(e) { return false; }
     }
     
-    async function syncToCloud() {
-        if(githubToken) await saveToGitHub({ newsItems: newsItems, profilePhoto: profilePhotoUrl });
-        saveLocalBackup();
+    function saveLocal() {
+        localStorage.setItem("yasinsNews_local", JSON.stringify(newsItems));
+        localStorage.setItem("yasinsPhoto_local", profilePhotoUrl);
+    }
+    
+    async function syncData() {
+        saveLocal();
+        if(githubToken) await saveToCloud();
     }
     
     function parseImageUrls(inputStr) {
         if(!inputStr || inputStr.trim() === "") return [];
         return inputStr.split(',').map(url => url.trim()).filter(url => url.startsWith("http"));
     }
-    
-    function formatImageUrlsForEdit(urlsArray) { return urlsArray.join(', '); }
     
     function displayNews() {
         let container = document.getElementById("newsfeedContainer");
@@ -359,7 +357,12 @@
     
     function openEditModal(id) {
         let post = newsItems.find(i => i.id === id);
-        if(post) { document.getElementById("editPostId").value = post.id; document.getElementById("editText").value = post.text; document.getElementById("editImageUrls").value = formatImageUrlsForEdit(post.imageUrls || []); document.getElementById("editModal").style.display = "flex"; }
+        if(post) {
+            document.getElementById("editPostId").value = post.id;
+            document.getElementById("editText").value = post.text;
+            document.getElementById("editImageUrls").value = (post.imageUrls || []).join(', ');
+            document.getElementById("editModal").style.display = "flex";
+        }
     }
     
     async function saveEdit() {
@@ -368,7 +371,15 @@
         let newImageUrls = parseImageUrls(document.getElementById("editImageUrls").value);
         if(!newText) { alert("Text cannot be empty!"); return; }
         let idx = newsItems.findIndex(i => i.id === id);
-        if(idx !== -1) { newsItems[idx].text = newText; newsItems[idx].imageUrls = newImageUrls; await syncToCloud(); displayNews(); displayAdminNews(); closeEditModal(); showToast("Post updated!"); }
+        if(idx !== -1) {
+            newsItems[idx].text = newText;
+            newsItems[idx].imageUrls = newImageUrls;
+            await syncData();
+            displayNews();
+            if(isAdminLoggedIn) displayAdminNews();
+            closeEditModal();
+            showToast("Post updated!");
+        }
     }
     
     function closeEditModal() { document.getElementById("editModal").style.display = "none"; }
@@ -378,7 +389,7 @@
         if(!text) { alert("Write something!"); return; }
         let imageUrls = parseImageUrls(document.getElementById("newsImageInput").value);
         newsItems.push({ id: Date.now(), text: text, imageUrls: imageUrls, date: new Date().toLocaleDateString() });
-        await syncToCloud();
+        await syncData();
         displayNews();
         if(isAdminLoggedIn) displayAdminNews();
         document.getElementById("newsTextInput").value = "";
@@ -387,7 +398,13 @@
     }
     
     async function deleteNews(id) {
-        if(confirm("Delete this news?")) { newsItems = newsItems.filter(i => i.id !== id); await syncToCloud(); displayNews(); if(isAdminLoggedIn) displayAdminNews(); showToast("Deleted"); }
+        if(confirm("Delete this news?")) {
+            newsItems = newsItems.filter(i => i.id !== id);
+            await syncData();
+            displayNews();
+            if(isAdminLoggedIn) displayAdminNews();
+            showToast("Deleted");
+        }
     }
     
     async function updateProfilePhoto() {
@@ -395,7 +412,7 @@
         if(!newUrl) { alert("Paste an image URL!"); return; }
         profilePhotoUrl = newUrl;
         document.getElementById("profileImage").src = profilePhotoUrl;
-        await syncToCloud();
+        await syncData();
         showToast("Profile photo updated!");
         document.getElementById("photoUrlInput").value = "";
     }
@@ -416,18 +433,36 @@
         } else alert("Wrong password! Use: admin123");
     }
     
+    function saveGitHubToken() {
+        let token = document.getElementById("githubToken").value.trim();
+        if(token) {
+            githubToken = token;
+            localStorage.setItem("github_token", token);
+            document.getElementById("setupModal").style.display = "none";
+            showToast("Cloud backup enabled! Reloading...");
+            setTimeout(() => location.reload(), 1000);
+        } else alert("Enter a valid token");
+    }
+    
+    function skipSetup() {
+        document.getElementById("setupModal").style.display = "none";
+        showToast("Using local storage only");
+    }
+    
     window.onclick = function(e) {
         if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none";
         if(e.target === document.getElementById("adminModal")) document.getElementById("adminModal").style.display = "none";
         if(e.target === document.getElementById("editModal")) closeEditModal();
-        if(e.target === document.getElementById("setupModal")) {}
     }
     
-    async function init() {
-        if(githubToken) { await loadFromGitHub(); displayNews(); }
-        else { document.getElementById("setupModal").style.display = "flex"; loadLocalBackup(); }
-    }
-    init();
+    // Show setup modal if no token (after 1 second)
+    setTimeout(() => {
+        if(!localStorage.getItem("github_token") && !localStorage.getItem("setup_skipped")) {
+            document.getElementById("setupModal").style.display = "flex";
+        }
+    }, 500);
+    
+    loadData();
 </script>
 </body>
 </html>
