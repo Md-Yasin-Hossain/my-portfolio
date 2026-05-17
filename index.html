@@ -7,613 +7,106 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-        body{
-            font-family:'Inter',sans-serif;
-            background:#f8fafc;
-            color:#0f172a;
-            line-height:1.5;
-            scroll-behavior:smooth;
-            overflow-x:hidden;
-        }
-        .container{
-            max-width:1200px;
-            margin:0 auto;
-            padding:0 20px;
-        }
-        /* Responsive container padding */
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:#f8fafc;color:#0f172a;line-height:1.5;scroll-behavior:smooth;overflow-x:hidden;}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+        @media (max-width:768px){.container{padding:0 16px;}}
+        .glass-card{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-radius:32px;box-shadow:0 20px 35px -10px rgba(0,0,0,0.1);transition:transform 0.4s,box-shadow 0.4s;}
+        .glass-card:hover{transform:translateY(-8px);box-shadow:0 30px 45px -12px rgba(0,0,0,0.2);}
+        nav{background:rgba(255,255,255,0.98);backdrop-filter:blur(12px);box-shadow:0 2px 15px rgba(0,0,0,0.05);position:sticky;top:0;z-index:100;}
+        .nav-container{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;max-width:1200px;margin:0 auto;}
         @media (max-width:768px){
-            .container{
-                padding:0 16px;
-            }
-        }
-        .glass-card{
-            background:rgba(255,255,255,0.95);
-            backdrop-filter:blur(10px);
-            border-radius:32px;
-            box-shadow:0 20px 35px -10px rgba(0,0,0,0.1);
-            transition:transform 0.4s,box-shadow 0.4s;
-        }
-        .glass-card:hover{
-            transform:translateY(-8px);
-            box-shadow:0 30px 45px -12px rgba(0,0,0,0.2);
-        }
-        /* Responsive navigation */
-        nav{
-            background:rgba(255,255,255,0.98);
-            backdrop-filter:blur(12px);
-            box-shadow:0 2px 15px rgba(0,0,0,0.05);
-            position:sticky;
-            top:0;
-            z-index:100;
-        }
-        .nav-container{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            padding:16px 24px;
-            max-width:1200px;
-            margin:0 auto;
-        }
-        @media (max-width:768px){
-            .nav-container{
-                padding:12px 16px;
-                flex-wrap:wrap;
-            }
-            .nav-links{
-                display:flex;
-                flex-wrap:wrap;
-                justify-content:center;
-                gap:12px;
-                margin-top:10px;
-                width:100%;
-            }
-            .nav-links a{
-                margin-left:0 !important;
-                font-size:0.85rem;
-                padding:6px 12px;
-            }
-            .admin-btn{
-                margin-left:0 !important;
-                padding:6px 16px;
-                font-size:0.85rem;
-            }
-        }
-        .logo{
-            font-weight:800;
-            font-size:1.6rem;
-            background:linear-gradient(135deg,#667eea,#764ba2);
-            -webkit-background-clip:text;
-            background-clip:text;
-            color:transparent;
-        }
-        @media (max-width:480px){
-            .logo{
-                font-size:1.3rem;
-            }
-        }
-        .nav-links a{
-            text-decoration:none;
-            color:#1e293b;
-            font-weight:500;
-            margin-left:32px;
-            transition:color 0.3s;
-        }
-        .nav-links a:hover{
-            color:#764ba2;
-        }
-        .admin-btn{
-            background:linear-gradient(135deg,#667eea,#764ba2);
-            color:white;
-            border:none;
-            padding:8px 20px;
-            border-radius:40px;
-            cursor:pointer;
-            font-weight:600;
-            margin-left:20px;
-            transition:all 0.3s;
-        }
-        .admin-btn:hover{
-            transform:scale(1.05);
-        }
-        /* Hero section - Responsive */
-        .hero{
-            padding:60px 0 40px;
-        }
-        @media (max-width:768px){
-            .hero{
-                padding:40px 0 30px;
-            }
-        }
-        .hero-grid{
-            display:flex;
-            flex-wrap:wrap;
-            gap:40px;
-            align-items:center;
-            justify-content:space-between;
-        }
-        @media (max-width:768px){
-            .hero-grid{
-                flex-direction:column-reverse;
-                text-align:center;
-                gap:30px;
-            }
-        }
-        .hero-content{
-            flex:1;
-            min-width:280px;
-        }
-        .hero-badge{
-            background:linear-gradient(120deg,#e0e7ff,#ede9fe);
-            display:inline-block;
-            padding:6px 14px;
-            border-radius:40px;
-            font-size:0.85rem;
-            font-weight:600;
-            color:#5b21b6;
-            margin-bottom:20px;
-        }
-        .hero-content h1{
-            font-size:3.5rem;
-            font-weight:800;
-            line-height:1.2;
-            margin-bottom:16px;
-            background:linear-gradient(135deg,#1e293b,#4c1d95);
-            -webkit-background-clip:text;
-            background-clip:text;
-            color:transparent;
-        }
-        @media (max-width:768px){
-            .hero-content h1{
-                font-size:2.2rem;
-            }
-        }
-        @media (max-width:480px){
-            .hero-content h1{
-                font-size:1.8rem;
-            }
-        }
-        .hero-content p{
-            font-size:1.1rem;
-            color:#334155;
-            margin-bottom:24px;
-        }
-        @media (max-width:480px){
-            .hero-content p{
-                font-size:0.95rem;
-            }
-        }
-        .btn-group{
-            display:flex;
-            gap:12px;
-            flex-wrap:wrap;
-            justify-content:flex-start;
-        }
-        @media (max-width:768px){
-            .btn-group{
-                justify-content:center;
-            }
-        }
-        .btn-primary{
-            background:linear-gradient(135deg,#667eea,#764ba2);
-            color:white;
-            padding:10px 24px;
-            border-radius:40px;
-            text-decoration:none;
-            font-weight:600;
-            transition:all 0.3s;
-            display:inline-block;
-            font-size:0.95rem;
-        }
-        .btn-primary:hover{
-            transform:translateY(-3px);
-        }
-        .btn-outline{
-            border:2px solid #764ba2;
-            color:#764ba2;
-            padding:8px 22px;
-            border-radius:40px;
-            text-decoration:none;
-            font-weight:600;
-            transition:all 0.3s;
-            font-size:0.95rem;
-        }
-        .btn-outline:hover{
-            background:#764ba2;
-            color:white;
-        }
-        .btn-download{
-            background:linear-gradient(135deg,#10b981,#059669);
-            color:white;
-            padding:10px 24px;
-            border-radius:40px;
-            text-decoration:none;
-            font-weight:600;
-            transition:all 0.3s;
-            display:inline-block;
-            font-size:0.95rem;
-        }
-        .btn-download:hover{
-            transform:translateY(-3px);
-        }
-        .hero-image{
-            flex:0.5;
-            text-align:center;
-        }
-        .profile-img{
-            width:280px;
-            height:280px;
-            border-radius:50%;
-            object-fit:cover;
-            box-shadow:0 25px 40px -12px rgba(0,0,0,0.25);
-            border:4px solid white;
-        }
-        @media (max-width:768px){
-            .profile-img{
-                width:200px;
-                height:200px;
-            }
-        }
-        @media (max-width:480px){
-            .profile-img{
-                width:160px;
-                height:160px;
-            }
-        }
-        /* Sections */
-        section{
-            padding:60px 0;
-        }
-        @media (max-width:768px){
-            section{
-                padding:40px 0;
-            }
-        }
-        .section-title{
-            font-size:2rem;
-            font-weight:700;
-            margin-bottom:40px;
-            position:relative;
-            display:inline-block;
-        }
-        @media (max-width:768px){
-            .section-title{
-                font-size:1.6rem;
-                margin-bottom:30px;
-            }
-        }
-        .section-title:after{
-            content:'';
-            position:absolute;
-            bottom:-12px;
-            left:0;
-            width:60px;
-            height:4px;
-            background:linear-gradient(90deg,#667eea,#f093fb);
-            border-radius:4px;
-        }
-        /* Grid layouts - Responsive */
-        .grid-2col{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-            gap:30px;
-        }
-        @media (max-width:640px){
-            .grid-2col{
-                grid-template-columns:1fr;
-                gap:20px;
-            }
-        }
-        .card{
-            background:white;
-            border-radius:24px;
-            padding:24px;
-            box-shadow:0 10px 25px -5px rgba(0,0,0,0.05);
-            transition:all 0.4s;
-        }
-        @media (max-width:480px){
-            .card{
-                padding:18px;
-            }
-        }
-        .card:hover{
-            transform:translateY(-8px);
-        }
-        .card h3{
-            font-size:1.3rem;
-            margin-bottom:12px;
-        }
-        .card .meta{
-            color:#764ba2;
-            font-weight:600;
-            font-size:0.85rem;
-            margin-bottom:8px;
-        }
-        /* Interests - Responsive grid */
-        .interests-grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:30px;
-            margin-top:20px;
-        }
-        @media (max-width:640px){
-            .interests-grid{
-                grid-template-columns:1fr;
-                gap:20px;
-            }
-        }
-        .interest-card{
-            background:white;
-            border-radius:24px;
-            overflow:hidden;
-            box-shadow:0 10px 25px -5px rgba(0,0,0,0.08);
-            transition:all 0.4s;
-        }
-        .interest-card:hover{
-            transform:translateY(-8px);
-        }
-        .interest-image{
-            width:100%;
-            height:180px;
-            object-fit:cover;
-        }
-        @media (max-width:480px){
-            .interest-image{
-                height:150px;
-            }
-        }
-        .interest-content{
-            padding:20px;
-        }
-        .interest-icon{
-            font-size:2rem;
-            margin-bottom:10px;
-        }
-        .interest-title{
-            font-size:1.3rem;
-            font-weight:700;
-            margin-bottom:12px;
-            background:linear-gradient(135deg,#1e293b,#4c1d95);
-            -webkit-background-clip:text;
-            background-clip:text;
-            color:transparent;
-        }
-        .interest-text{
-            color:#475569;
-            line-height:1.5;
-            font-size:0.9rem;
-        }
-        .game-tags,.movie-tags{
-            display:flex;
-            flex-wrap:wrap;
-            gap:8px;
-            margin-top:12px;
-        }
-        .game-tag,.movie-tag{
-            background:#f1f5f9;
-            padding:4px 12px;
-            border-radius:20px;
-            font-size:0.7rem;
-            font-weight:500;
-            color:#4c1d95;
-        }
-        .skill-tag{
-            display:inline-block;
-            background:#f1f5f9;
-            padding:6px 14px;
-            border-radius:40px;
-            margin:4px 5px 4px 0;
-            font-size:0.8rem;
-            font-weight:500;
-        }
-        .skill-tag:hover{
-            background:linear-gradient(135deg,#667eea,#764ba2);
-            color:white;
-        }
-        /* Newsfeed - Responsive */
-        .newsfeed{
-            background:white;
-            border-radius:24px;
-            padding:24px;
-            margin-top:20px;
-        }
-        @media (max-width:480px){
-            .newsfeed{
-                padding:16px;
-            }
-        }
-        .news-item{
-            background:#f8fafc;
-            border-radius:20px;
-            padding:18px;
-            margin-bottom:20px;
-            border-left:4px solid #764ba2;
-        }
-        @media (max-width:480px){
-            .news-item{
-                padding:14px;
-            }
-        }
-        .news-date{
-            color:#764ba2;
-            font-size:0.75rem;
-            font-weight:600;
-            margin-bottom:10px;
-        }
-        .news-text{
-            font-size:0.95rem;
-            color:#1e293b;
-            line-height:1.5;
-            margin-bottom:10px;
-        }
-        .news-gallery{
-            display:flex;
-            flex-wrap:wrap;
-            gap:10px;
-            margin-top:12px;
-        }
-        .news-gallery-img{
-            max-width:calc(33% - 7px);
-            min-width:100px;
-            flex:1 1 auto;
-            border-radius:14px;
-            object-fit:cover;
-            cursor:pointer;
-            transition:transform 0.2s;
-        }
-        @media (max-width:640px){
-            .news-gallery-img{
-                max-width:calc(50% - 5px);
-            }
-        }
-        .news-gallery-img:hover{
-            transform:scale(1.02);
-        }
-        /* Contact section - Responsive */
-        .contact-flex{
-            display:flex;
-            flex-wrap:wrap;
-            gap:15px;
-            justify-content:center;
-            margin-bottom:30px;
-        }
-        .contact-item{
-            background:white;
-            padding:12px 20px;
-            border-radius:50px;
-            display:inline-flex;
-            align-items:center;
-            gap:10px;
-            font-weight:500;
-            text-decoration:none;
-            color:#1e293b;
-            transition:all 0.3s;
-            font-size:0.9rem;
-        }
-        @media (max-width:480px){
-            .contact-item{
-                padding:10px 16px;
-                font-size:0.8rem;
-            }
-            .contact-item i{
-                font-size:1rem;
-            }
-        }
-        .contact-item:hover{
-            transform:translateY(-3px);
-        }
+            .nav-container{padding:12px 16px;flex-wrap:wrap;}
+            .nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:10px;width:100%;}
+            .nav-links a{margin-left:0 !important;font-size:0.85rem;padding:6px 12px;}
+            .admin-btn{margin-left:0 !important;padding:6px 16px;font-size:0.85rem;}
+        }
+        .logo{font-weight:800;font-size:1.6rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;color:transparent;}
+        @media (max-width:480px){.logo{font-size:1.3rem;}}
+        .nav-links a{text-decoration:none;color:#1e293b;font-weight:500;margin-left:32px;transition:color 0.3s;}
+        .nav-links a:hover{color:#764ba2;}
+        .admin-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:8px 20px;border-radius:40px;cursor:pointer;font-weight:600;margin-left:20px;transition:all 0.3s;}
+        .admin-btn:hover{transform:scale(1.05);}
+        .hero{padding:60px 0 40px;}
+        @media (max-width:768px){.hero{padding:40px 0 30px;}}
+        .hero-grid{display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:space-between;}
+        @media (max-width:768px){.hero-grid{flex-direction:column-reverse;text-align:center;gap:30px;}}
+        .hero-content{flex:1;min-width:280px;}
+        .hero-badge{background:linear-gradient(120deg,#e0e7ff,#ede9fe);display:inline-block;padding:6px 14px;border-radius:40px;font-size:0.85rem;font-weight:600;color:#5b21b6;margin-bottom:20px;}
+        .hero-content h1{font-size:3.5rem;font-weight:800;line-height:1.2;margin-bottom:16px;background:linear-gradient(135deg,#1e293b,#4c1d95);-webkit-background-clip:text;background-clip:text;color:transparent;}
+        @media (max-width:768px){.hero-content h1{font-size:2.2rem;}}
+        @media (max-width:480px){.hero-content h1{font-size:1.8rem;}}
+        .hero-content p{font-size:1.1rem;color:#334155;margin-bottom:24px;}
+        @media (max-width:480px){.hero-content p{font-size:0.95rem;}}
+        .btn-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start;}
+        @media (max-width:768px){.btn-group{justify-content:center;}}
+        .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:10px 24px;border-radius:40px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block;font-size:0.95rem;}
+        .btn-primary:hover{transform:translateY(-3px);}
+        .btn-outline{border:2px solid #764ba2;color:#764ba2;padding:8px 22px;border-radius:40px;text-decoration:none;font-weight:600;transition:all 0.3s;font-size:0.95rem;}
+        .btn-outline:hover{background:#764ba2;color:white;}
+        .btn-download{background:linear-gradient(135deg,#10b981,#059669);color:white;padding:10px 24px;border-radius:40px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block;font-size:0.95rem;}
+        .btn-download:hover{transform:translateY(-3px);}
+        .hero-image{flex:0.5;text-align:center;}
+        .profile-img{width:280px;height:280px;border-radius:50%;object-fit:cover;box-shadow:0 25px 40px -12px rgba(0,0,0,0.25);border:4px solid white;}
+        @media (max-width:768px){.profile-img{width:200px;height:200px;}}
+        @media (max-width:480px){.profile-img{width:160px;height:160px;}}
+        section{padding:60px 0;}
+        @media (max-width:768px){section{padding:40px 0;}}
+        .section-title{font-size:2rem;font-weight:700;margin-bottom:40px;position:relative;display:inline-block;}
+        @media (max-width:768px){.section-title{font-size:1.6rem;margin-bottom:30px;}}
+        .section-title:after{content:'';position:absolute;bottom:-12px;left:0;width:60px;height:4px;background:linear-gradient(90deg,#667eea,#f093fb);border-radius:4px;}
+        .grid-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
+        @media (max-width:640px){.grid-2col{grid-template-columns:1fr;gap:20px;}}
+        .card{background:white;border-radius:24px;padding:24px;box-shadow:0 10px 25px -5px rgba(0,0,0,0.05);transition:all 0.4s;}
+        @media (max-width:480px){.card{padding:18px;}}
+        .card:hover{transform:translateY(-8px);}
+        .card h3{font-size:1.3rem;margin-bottom:12px;}
+        .card .meta{color:#764ba2;font-weight:600;font-size:0.85rem;margin-bottom:8px;}
+        .interests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:20px;}
+        @media (max-width:640px){.interests-grid{grid-template-columns:1fr;gap:20px;}}
+        .interest-card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 10px 25px -5px rgba(0,0,0,0.08);transition:all 0.4s;}
+        .interest-card:hover{transform:translateY(-8px);}
+        .interest-image{width:100%;height:180px;object-fit:cover;}
+        @media (max-width:480px){.interest-image{height:150px;}}
+        .interest-content{padding:20px;}
+        .interest-icon{font-size:2rem;margin-bottom:10px;}
+        .interest-title{font-size:1.3rem;font-weight:700;margin-bottom:12px;background:linear-gradient(135deg,#1e293b,#4c1d95);-webkit-background-clip:text;background-clip:text;color:transparent;}
+        .interest-text{color:#475569;line-height:1.5;font-size:0.9rem;}
+        .game-tags,.movie-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+        .game-tag,.movie-tag{background:#f1f5f9;padding:4px 12px;border-radius:20px;font-size:0.7rem;font-weight:500;color:#4c1d95;}
+        .skill-tag{display:inline-block;background:#f1f5f9;padding:6px 14px;border-radius:40px;margin:4px 5px 4px 0;font-size:0.8rem;font-weight:500;}
+        .skill-tag:hover{background:linear-gradient(135deg,#667eea,#764ba2);color:white;}
+        .newsfeed{background:white;border-radius:24px;padding:24px;margin-top:20px;}
+        @media (max-width:480px){.newsfeed{padding:16px;}}
+        .news-item{background:#f8fafc;border-radius:20px;padding:18px;margin-bottom:20px;border-left:4px solid #764ba2;}
+        @media (max-width:480px){.news-item{padding:14px;}}
+        .news-date{color:#764ba2;font-size:0.75rem;font-weight:600;margin-bottom:10px;}
+        .news-text{font-size:0.95rem;color:#1e293b;line-height:1.5;margin-bottom:10px;}
+        .news-gallery{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+        .news-gallery-img{max-width:calc(33% - 7px);min-width:100px;flex:1 1 auto;border-radius:14px;object-fit:cover;cursor:pointer;transition:transform 0.2s;}
+        @media (max-width:640px){.news-gallery-img{max-width:calc(50% - 5px);}}
+        .news-gallery-img:hover{transform:scale(1.02);}
+        .contact-flex{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin-bottom:30px;}
+        .contact-item{background:white;padding:12px 20px;border-radius:50px;display:inline-flex;align-items:center;gap:10px;font-weight:500;text-decoration:none;color:#1e293b;transition:all 0.3s;font-size:0.9rem;}
+        @media (max-width:480px){.contact-item{padding:10px 16px;font-size:0.8rem;}.contact-item i{font-size:1rem;}}
+        .contact-item:hover{transform:translateY(-3px);}
         .contact-item.facebook:hover{background:#1877f2;color:white;}
         .contact-item.instagram:hover{background:linear-gradient(45deg,#f09433,#d62976,#962fbf);color:white;}
         .contact-item.email:hover{background:#ea4335;color:white;}
         .contact-item.phone:hover{background:#34b7f1;color:white;}
         .contact-item.linkedin:hover{background:#0077b5;color:white;}
         .contact-item.wordpress:hover{background:#21759b;color:white;}
-        
-        footer{
-            background:#0f172a;
-            color:#cbd5e1;
-            text-align:center;
-            padding:24px 0;
-            margin-top:40px;
-            font-size:0.85rem;
-        }
-        /* Modal responsive */
-        .modal{
-            display:none;
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background:rgba(0,0,0,0.8);
-            z-index:1000;
-            justify-content:center;
-            align-items:center;
-        }
-        .modal-content{
-            background:white;
-            border-radius:28px;
-            padding:28px;
-            max-width:500px;
-            width:90%;
-            max-height:85vh;
-            overflow-y:auto;
-        }
-        @media (max-width:480px){
-            .modal-content{
-                padding:20px;
-            }
-        }
-        .modal-content input,.modal-content textarea{
-            width:100%;
-            padding:12px;
-            margin:10px 0;
-            border:1px solid #e2e8f0;
-            border-radius:16px;
-            font-family:inherit;
-            font-size:0.95rem;
-        }
-        .modal-content button{
-            background:linear-gradient(135deg,#667eea,#764ba2);
-            color:white;
-            border:none;
-            padding:12px 24px;
-            border-radius:40px;
-            cursor:pointer;
-            margin-top:10px;
-            width:100%;
-            font-size:0.95rem;
-        }
-        .edit-btn{
-            background:#f59e0b;
-            color:white;
-            border:none;
-            padding:6px 12px;
-            border-radius:20px;
-            cursor:pointer;
-            margin-right:8px;
-            font-size:0.8rem;
-        }
-        .delete-btn{
-            background:#ef4444;
-            color:white;
-            border:none;
-            padding:6px 12px;
-            border-radius:20px;
-            cursor:pointer;
-            font-size:0.8rem;
-        }
-        .helper-note{
-            font-size:0.7rem;
-            color:#64748b;
-            margin-top:5px;
-        }
-        .toast{
-            position:fixed;
-            bottom:20px;
-            right:20px;
-            background:#10b981;
-            color:white;
-            padding:10px 20px;
-            border-radius:40px;
-            z-index:2000;
-            animation:fadeInOut 3s ease;
-            font-size:0.85rem;
-        }
-        @keyframes fadeInOut{
-            0%{opacity:0;transform:translateY(20px);}
-            15%{opacity:1;transform:translateY(0);}
-            85%{opacity:1;}
-            100%{opacity:0;visibility:hidden;}
-        }
-        /* Hide scrollbar on modals for cleaner look */
-        .modal-content::-webkit-scrollbar{
-            width:4px;
-        }
+        footer{background:#0f172a;color:#cbd5e1;text-align:center;padding:24px 0;margin-top:40px;font-size:0.85rem;}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center;}
+        .modal-content{background:white;border-radius:28px;padding:28px;max-width:500px;width:90%;max-height:85vh;overflow-y:auto;}
+        @media (max-width:480px){.modal-content{padding:20px;}}
+        .modal-content input,.modal-content textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #e2e8f0;border-radius:16px;font-family:inherit;font-size:0.95rem;}
+        .modal-content button{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:12px 24px;border-radius:40px;cursor:pointer;margin-top:10px;width:100%;font-size:0.95rem;}
+        .edit-btn{background:#f59e0b;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;margin-right:8px;font-size:0.8rem;}
+        .delete-btn{background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;font-size:0.8rem;}
+        .helper-note{font-size:0.7rem;color:#64748b;margin-top:5px;}
+        .toast{position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:10px 20px;border-radius:40px;z-index:2000;animation:fadeInOut 3s ease;font-size:0.85rem;}
+        @keyframes fadeInOut{0%{opacity:0;transform:translateY(20px);}15%{opacity:1;transform:translateY(0);}85%{opacity:1;}100%{opacity:0;visibility:hidden;}}
     </style>
 </head>
 <body>
@@ -708,7 +201,7 @@
     <section id="newsfeed" style="background:#fff;">
         <div class="container">
             <h2 class="section-title">📰 Latest News & Updates</h2>
-            <div id="newsfeedContainer" class="newsfeed"><div style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Loading...</div></div>
+            <div id="newsfeedContainer" class="newsfeed"><div style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Loading from cloud...</div></div>
         </div>
     </section>
 
@@ -730,9 +223,28 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Fully Responsive Portfolio</p>
+        <p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Cloud Backup Enabled</p>
     </div>
 </footer>
+
+<!-- Token Setup Modal (First time only) -->
+<div id="tokenModal" class="modal">
+    <div class="modal-content">
+        <h3>🔧 Enable Cloud Backup (Recommended)</h3>
+        <p>Your posts will be saved to GitHub and will NEVER disappear, even after code updates.</p>
+        <div class="helper-note" style="background:#e0e7ff;padding:12px;border-radius:16px;margin:15px 0;">
+            <strong>📝 How to get a GitHub token:</strong><br>
+            1. Go to <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">github.com/settings/tokens/new</a><br>
+            2. Enter any name (e.g., "Portfolio Backup")<br>
+            3. Select <strong>"repo"</strong> scope<br>
+            4. Click "Generate token"<br>
+            5. Copy the token and paste below
+        </div>
+        <input type="password" id="githubTokenInput" placeholder="Paste your GitHub token here">
+        <button onclick="saveToken()">Enable Cloud Backup</button>
+        <button onclick="skipToken()" style="background:#64748b;">Skip (Use Local Only - May lose data)</button>
+    </div>
+</div>
 
 <!-- Admin Login Modal -->
 <div id="loginModal" class="modal">
@@ -741,12 +253,13 @@
         <div id="loginError" class="helper-note" style="display:none;color:#ef4444;background:#fee2e2;padding:10px;border-radius:12px;margin-bottom:15px;">❌ Wrong password! Try again.</div>
         <input type="password" id="adminPassword" placeholder="Enter password">
         <button onclick="checkAdminLogin()">Login</button>
-        <div class="helper-note">💡 Only website owner has access</div>
+        <div class="helper-note">💡 Password: Yasin123</div>
     </div>
 </div>
 
 <!-- Admin Panel -->
 <div id="adminModal" class="modal"><div class="modal-content"><h3><i class="fas fa-cog"></i> Admin Dashboard</h3>
+    <div id="cloudStatus" style="background:#d1fae5;padding:8px;border-radius:12px;margin-bottom:15px;font-size:0.8rem;text-align:center;">☁️ Cloud backup: <span id="cloudStatusText">Checking...</span></div>
     <h4>📸 Change Profile Photo</h4>
     <input type="text" id="photoUrlInput" placeholder="Paste image URL">
     <button onclick="updateProfilePhoto()">Update Photo</button>
@@ -774,24 +287,90 @@
 </div></div>
 
 <script>
-    // HARDCODED PASSWORD
     const ADMIN_PASSWORD = "Yasin123";
+    const REPO_OWNER = "Md-Yasin-Hossain";
+    const REPO_NAME = "my-portfolio";
+    const DATA_FILE = "portfolio-data.json";
+    const GITHUB_API = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${DATA_FILE}`;
     
+    let githubToken = localStorage.getItem("github_token");
     let newsItems = [];
     let profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
     let isAdminLoggedIn = false;
     
-    function showToast(msg) {
-        let toast = document.createElement("div");
-        toast.className = "toast";
-        toast.innerHTML = msg;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+    function showToast(msg) { let t=document.createElement("div");t.className="toast";t.innerHTML=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
+    
+    async function loadFromGitHub() {
+        if(!githubToken) return false;
+        try {
+            let res = await fetch(GITHUB_API, { headers: { "Authorization": `token ${githubToken}` } });
+            if(res.ok) {
+                let data = await res.json();
+                let content = JSON.parse(atob(data.content));
+                newsItems = content.newsItems || [];
+                profilePhotoUrl = content.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
+                document.getElementById("profileImage").src = profilePhotoUrl;
+                document.getElementById("cloudStatusText") && (document.getElementById("cloudStatusText").innerHTML = "✅ Active");
+                displayNews();
+                return true;
+            }
+        } catch(e) { console.log("GitHub load failed"); }
+        return false;
     }
     
+    async function saveToGitHub() {
+        if(!githubToken) return false;
+        try {
+            let sha = "";
+            let getRes = await fetch(GITHUB_API, { headers: { "Authorization": `token ${githubToken}` } });
+            if(getRes.ok) { let existing = await getRes.json(); sha = existing.sha; }
+            let content = btoa(unescape(encodeURIComponent(JSON.stringify({ newsItems: newsItems, profilePhoto: profilePhotoUrl, lastUpdated: new Date().toISOString() }, null, 2))));
+            await fetch(GITHUB_API, { method: "PUT", headers: { "Authorization": `token ${githubToken}`, "Content-Type": "application/json" }, body: JSON.stringify({ message: "Update portfolio data", content: content, sha: sha }) });
+            return true;
+        } catch(e) { return false; }
+    }
+    
+    async function syncToCloud() {
+        if(githubToken) {
+            let saved = await saveToGitHub();
+            if(saved) showToast("✅ Saved to cloud!");
+            else showToast("⚠️ Cloud save failed");
+        }
+    }
+    
+    function saveToken() {
+        let token = document.getElementById("githubTokenInput").value.trim();
+        if(token) {
+            githubToken = token;
+            localStorage.setItem("github_token", token);
+            document.getElementById("tokenModal").style.display = "none";
+            showToast("Token saved! Reloading...");
+            setTimeout(() => location.reload(), 1000);
+        } else alert("Enter a valid token");
+    }
+    
+    function skipToken() {
+        document.getElementById("tokenModal").style.display = "none";
+        showToast("Using local storage only. Data may be lost on code update.");
+        loadLocalBackup();
+    }
+    
+    function loadLocalBackup() {
+        let saved = localStorage.getItem("portfolio_backup");
+        if(saved) { let data = JSON.parse(saved); newsItems = data.newsItems || []; profilePhotoUrl = data.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin"; }
+        else { newsItems = [{ id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities!", imageUrls: [], date: new Date().toLocaleDateString() }]; }
+        document.getElementById("profileImage").src = profilePhotoUrl;
+        displayNews();
+        document.getElementById("cloudStatusText") && (document.getElementById("cloudStatusText").innerHTML = "❌ Not Active");
+    }
+    
+    function saveLocalBackup() { localStorage.setItem("portfolio_backup", JSON.stringify({ newsItems: newsItems, profilePhoto: profilePhotoUrl })); }
+    
+    async function syncData() { saveLocalBackup(); if(githubToken) await saveToGitHub(); }
+    
     function checkAdminLogin() {
-        let enteredPwd = document.getElementById("adminPassword").value;
-        if(enteredPwd === ADMIN_PASSWORD) {
+        let pwd = document.getElementById("adminPassword").value;
+        if(pwd === ADMIN_PASSWORD) {
             document.getElementById("loginModal").style.display = "none";
             document.getElementById("adminModal").style.display = "flex";
             isAdminLoggedIn = true;
@@ -799,70 +378,38 @@
             document.getElementById("adminPassword").value = "";
             document.getElementById("loginError").style.display = "none";
             showToast("✅ Login successful!");
-        } else {
-            document.getElementById("loginError").style.display = "block";
-            document.getElementById("adminPassword").value = "";
-        }
+        } else { document.getElementById("loginError").style.display = "block"; document.getElementById("adminPassword").value = ""; }
     }
     
-    function openAdminLogin() {
-        document.getElementById("loginError").style.display = "none";
-        document.getElementById("adminPassword").value = "";
-        document.getElementById("loginModal").style.display = "flex";
-    }
+    function openAdminLogin() { document.getElementById("loginError").style.display = "none"; document.getElementById("adminPassword").value = ""; document.getElementById("loginModal").style.display = "flex"; }
+    function closeAdminPanel() { document.getElementById("adminModal").style.display = "none"; isAdminLoggedIn = false; }
     
-    function closeAdminPanel() { 
-        document.getElementById("adminModal").style.display = "none"; 
-        isAdminLoggedIn = false; 
-    }
-    
-    function loadData() {
-        let savedNews = localStorage.getItem("yasinsNews_responsive");
-        if(savedNews) newsItems = JSON.parse(savedNews);
-        else newsItems = [
-            { id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities! Open to collaborations.", imageUrls: [], date: new Date().toLocaleDateString() },
-            { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback!", imageUrls: [], date: new Date().toLocaleDateString() }
-        ];
-        let savedPhoto = localStorage.getItem("yasinsPhoto_responsive");
-        if(savedPhoto) profilePhotoUrl = savedPhoto;
-        document.getElementById("profileImage").src = profilePhotoUrl;
-        displayNews();
-    }
-    
-    function saveToLocal() {
-        localStorage.setItem("yasinsNews_responsive", JSON.stringify(newsItems));
-        localStorage.setItem("yasinsPhoto_responsive", profilePhotoUrl);
-    }
-    
-    function parseImageUrls(inputStr) {
-        if(!inputStr || inputStr.trim() === "") return [];
-        return inputStr.split(',').map(url => url.trim()).filter(url => url.startsWith("http"));
-    }
+    function parseImageUrls(str) { if(!str || !str.trim()) return []; return str.split(',').map(u=>u.trim()).filter(u=>u.startsWith("http")); }
     
     function displayNews() {
         let container = document.getElementById("newsfeedContainer");
-        if(newsItems.length === 0) { container.innerHTML = '<div class="news-item"><p>No news yet. Add from Admin panel!</p></div>'; return; }
+        if(!newsItems.length) { container.innerHTML = '<div class="news-item"><p>No news yet. Add from Admin panel!</p></div>'; return; }
         let html = "";
         for(let i = newsItems.length-1; i >= 0; i--) {
             let item = newsItems[i];
-            let galleryHtml = "";
-            if(item.imageUrls && item.imageUrls.length > 0) {
-                galleryHtml = `<div class="news-gallery">`;
-                for(let imgUrl of item.imageUrls) galleryHtml += `<img src="${imgUrl}" class="news-gallery-img" onclick="window.open(this.src)" loading="lazy">`;
-                galleryHtml += `</div>`;
+            let gallery = "";
+            if(item.imageUrls && item.imageUrls.length) {
+                gallery = `<div class="news-gallery">`;
+                for(let img of item.imageUrls) gallery += `<img src="${img}" class="news-gallery-img" onclick="window.open(this.src)" loading="lazy">`;
+                gallery += `</div>`;
             }
-            html += `<div class="news-item"><div class="news-date">📅 ${item.date}</div><div class="news-text">${escapeHtml(item.text)}</div>${galleryHtml}</div>`;
+            html += `<div class="news-item"><div class="news-date">📅 ${item.date}</div><div class="news-text">${escapeHtml(item.text)}</div>${gallery}</div>`;
         }
         container.innerHTML = html;
     }
     
     function displayAdminNews() {
         let container = document.getElementById("adminNewsList");
-        if(newsItems.length === 0) { container.innerHTML = "<p>No posts yet.</p>"; return; }
+        if(!newsItems.length) { container.innerHTML = "<p>No posts yet.</p>"; return; }
         let html = "";
         for(let i = newsItems.length-1; i >= 0; i--) {
             let item = newsItems[i];
-            let preview = item.imageUrls && item.imageUrls.length ? `<div style="display:flex;gap:4px;margin-top:6px;">${item.imageUrls.slice(0,2).map(u=>`<img src="${u}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;">`).join('')}${item.imageUrls.length>2?`<span style="font-size:11px;">+${item.imageUrls.length-2}</span>`:''}</div>` : "";
+            let preview = item.imageUrls && item.imageUrls.length ? `<div style="display:flex;gap:4px;margin-top:6px;">${item.imageUrls.slice(0,2).map(u=>`<img src="${u}" style="width:35px;height:35px;object-fit:cover;border-radius:8px;">`).join('')}${item.imageUrls.length>2?`<span style="font-size:10px;">+${item.imageUrls.length-2}</span>`:''}</div>` : "";
             html += `<div style="border:1px solid #e2e8f0;border-radius:16px;padding:12px;margin-bottom:12px;">
                 <p style="font-size:0.7rem;color:#764ba2;">${item.date}</p>
                 <p style="font-size:0.85rem;">${escapeHtml(item.text.substring(0,80))}${item.text.length>80?'...':''}</p>
@@ -873,41 +420,25 @@
         container.innerHTML = html;
     }
     
-    function openEditModal(id) {
-        let post = newsItems.find(i => i.id === id);
-        if(post) {
-            document.getElementById("editPostId").value = post.id;
-            document.getElementById("editText").value = post.text;
-            document.getElementById("editImageUrls").value = (post.imageUrls || []).join(', ');
-            document.getElementById("editModal").style.display = "flex";
-        }
-    }
+    function openEditModal(id) { let p = newsItems.find(i=>i.id===id); if(p){ document.getElementById("editPostId").value=p.id; document.getElementById("editText").value=p.text; document.getElementById("editImageUrls").value=(p.imageUrls||[]).join(', '); document.getElementById("editModal").style.display="flex"; } }
     
-    function saveEdit() {
+    async function saveEdit() {
         let id = parseInt(document.getElementById("editPostId").value);
-        let newText = document.getElementById("editText").value.trim();
-        let newImageUrls = parseImageUrls(document.getElementById("editImageUrls").value);
-        if(!newText) { alert("Text cannot be empty!"); return; }
-        let idx = newsItems.findIndex(i => i.id === id);
-        if(idx !== -1) {
-            newsItems[idx].text = newText;
-            newsItems[idx].imageUrls = newImageUrls;
-            saveToLocal();
-            displayNews();
-            if(isAdminLoggedIn) displayAdminNews();
-            closeEditModal();
-            showToast("Post updated!");
-        }
+        let txt = document.getElementById("editText").value.trim();
+        let imgs = parseImageUrls(document.getElementById("editImageUrls").value);
+        if(!txt){ alert("Text cannot be empty!"); return; }
+        let idx = newsItems.findIndex(i=>i.id===id);
+        if(idx!==-1){ newsItems[idx].text=txt; newsItems[idx].imageUrls=imgs; await syncData(); displayNews(); if(isAdminLoggedIn) displayAdminNews(); closeEditModal(); showToast("Post updated!"); }
     }
     
     function closeEditModal() { document.getElementById("editModal").style.display = "none"; }
     
-    function addNews() {
-        let text = document.getElementById("newsTextInput").value.trim();
-        if(!text) { alert("Write something!"); return; }
-        let imageUrls = parseImageUrls(document.getElementById("newsImageInput").value);
-        newsItems.push({ id: Date.now(), text: text, imageUrls: imageUrls, date: new Date().toLocaleDateString() });
-        saveToLocal();
+    async function addNews() {
+        let txt = document.getElementById("newsTextInput").value.trim();
+        if(!txt){ alert("Write something!"); return; }
+        let imgs = parseImageUrls(document.getElementById("newsImageInput").value);
+        newsItems.push({ id: Date.now(), text: txt, imageUrls: imgs, date: new Date().toLocaleDateString() });
+        await syncData();
         displayNews();
         if(isAdminLoggedIn) displayAdminNews();
         document.getElementById("newsTextInput").value = "";
@@ -915,35 +446,35 @@
         showToast("News published!");
     }
     
-    function deleteNews(id) {
-        if(confirm("Delete this news?")) {
-            newsItems = newsItems.filter(i => i.id !== id);
-            saveToLocal();
-            displayNews();
-            if(isAdminLoggedIn) displayAdminNews();
-            showToast("Deleted");
-        }
+    async function deleteNews(id) {
+        if(confirm("Delete?")){ newsItems = newsItems.filter(i=>i.id!==id); await syncData(); displayNews(); if(isAdminLoggedIn) displayAdminNews(); showToast("Deleted"); }
     }
     
-    function updateProfilePhoto() {
-        let newUrl = document.getElementById("photoUrlInput").value.trim();
-        if(!newUrl) { alert("Paste an image URL!"); return; }
-        profilePhotoUrl = newUrl;
+    async function updateProfilePhoto() {
+        let url = document.getElementById("photoUrlInput").value.trim();
+        if(!url){ alert("Paste an image URL!"); return; }
+        profilePhotoUrl = url;
         document.getElementById("profileImage").src = profilePhotoUrl;
-        saveToLocal();
-        showToast("Profile photo updated!");
+        await syncData();
+        showToast("Photo updated!");
         document.getElementById("photoUrlInput").value = "";
     }
     
-    function escapeHtml(str) { return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
+    function escapeHtml(str) { return str.replace(/[&<>]/g, m=>m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
     
     window.onclick = function(e) {
         if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none";
         if(e.target === document.getElementById("adminModal")) document.getElementById("adminModal").style.display = "none";
         if(e.target === document.getElementById("editModal")) closeEditModal();
+        if(e.target === document.getElementById("tokenModal")) {}
     }
     
-    loadData();
+    async function init() {
+        if(!githubToken) { document.getElementById("tokenModal").style.display = "flex"; loadLocalBackup(); }
+        else { let loaded = await loadFromGitHub(); if(!loaded) loadLocalBackup(); }
+        if(document.getElementById("cloudStatusText")) document.getElementById("cloudStatusText").innerHTML = githubToken ? "✅ Active" : "❌ Not Active";
+    }
+    init();
 </script>
 </body>
 </html>
