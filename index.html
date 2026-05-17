@@ -59,8 +59,8 @@
         .news-date{color:#764ba2;font-size:0.8rem;font-weight:600;margin-bottom:12px;}
         .news-text{font-size:1rem;color:#1e293b;line-height:1.5;margin-bottom:12px;}
         .news-gallery{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;}
-        .news-gallery-img{max-width:calc(33% - 8px);min-width:120px;flex:1 1 auto;border-radius:16px;object-fit:cover;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s;}
-        .news-gallery-img:hover{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+        .news-gallery-img{max-width:calc(33% - 8px);min-width:120px;flex:1 1 auto;border-radius:16px;object-fit:cover;cursor:pointer;transition:transform 0.2s;}
+        .news-gallery-img:hover{transform:scale(1.02);}
         .contact-flex{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-bottom:30px;}
         .contact-item{background:white;padding:14px 24px;border-radius:60px;display:inline-flex;align-items:center;gap:12px;font-weight:500;text-decoration:none;color:#1e293b;transition:all 0.3s;}
         .contact-item:hover{transform:translateY(-5px);}
@@ -71,16 +71,15 @@
         .contact-item.linkedin:hover{background:#0077b5;color:white;}
         .contact-item.wordpress:hover{background:#21759b;color:white;}
         footer{background:#0f172a;color:#cbd5e1;text-align:center;padding:32px 0;margin-top:40px;}
-        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center;}
-        .modal-content{background:white;border-radius:32px;padding:32px;max-width:550px;width:90%;max-height:85vh;overflow-y:auto;}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center;}
+        .modal-content{background:white;border-radius:32px;padding:32px;max-width:500px;width:90%;max-height:85vh;overflow-y:auto;}
         .modal-content input,.modal-content textarea{width:100%;padding:12px;margin:10px 0;border:1px solid #e2e8f0;border-radius:16px;font-family:inherit;}
         .modal-content button{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:12px 24px;border-radius:40px;cursor:pointer;margin-top:10px;width:100%;}
         .edit-btn{background:#f59e0b;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;margin-right:8px;}
         .delete-btn{background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:20px;cursor:pointer;}
         .helper-note{font-size:0.75rem;color:#64748b;margin-top:5px;}
-        .toast{position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:12px 24px;border-radius:40px;z-index:2000;animation:fadeInOut 3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+        .toast{position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:12px 24px;border-radius:40px;z-index:2000;animation:fadeInOut 3s ease;}
         @keyframes fadeInOut{0%{opacity:0;transform:translateY(20px);}15%{opacity:1;transform:translateY(0);}85%{opacity:1;}100%{opacity:0;visibility:hidden;}}
-        .warning-note{background:#fef3c7;border-left:4px solid #f59e0b;padding:12px;margin-bottom:15px;border-radius:12px;font-size:0.85rem;}
         @media (max-width:768px){.hero-content h1{font-size:2.4rem;}.profile-img{width:200px;height:200px;}.news-gallery-img{max-width:calc(50% - 6px);}}
     </style>
 </head>
@@ -176,7 +175,7 @@
     <section id="newsfeed" style="background:#fff;">
         <div class="container">
             <h2 class="section-title">📰 Latest News & Updates</h2>
-            <div id="newsfeedContainer" class="newsfeed"><div class="loading" style="text-align:center;padding:40px;"><i class="fas fa-spinner fa-pulse"></i> Loading...</div></div>
+            <div id="newsfeedContainer" class="newsfeed"><div style="text-align:center;padding:40px;"><i class="fas fa-spinner fa-pulse"></i> Loading...</div></div>
         </div>
     </section>
 
@@ -198,27 +197,14 @@
 
 <footer><div class="container"><p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Professional Portfolio</p></div></footer>
 
-<!-- First Time Setup - Create Admin Password -->
-<div id="firstTimeModal" class="modal">
-    <div class="modal-content">
-        <h3>🔐 First Time Setup - Create Admin Password</h3>
-        <p>Set a secure password to protect your admin panel. Only you will know it.</p>
-        <div class="warning-note">⚠️ This password is stored encrypted in your browser. Don't forget it!</div>
-        <label>Enter New Password:</label>
-        <input type="password" id="newPassword" placeholder="Your secure password">
-        <label>Confirm Password:</label>
-        <input type="password" id="confirmPassword" placeholder="Confirm your password">
-        <button onclick="createAdminPassword()">Create Admin Account</button>
-    </div>
-</div>
-
 <!-- Admin Login Modal -->
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <h3>🔐 Admin Login</h3>
-        <input type="password" id="adminPassword" placeholder="Enter your password">
-        <button onclick="checkSecureAdminLogin()">Login</button>
-        <div class="helper-note" style="margin-top:12px;">💡 Only you have access. Password is stored encrypted.</div>
+        <div id="loginError" class="helper-note" style="display:none;color:#ef4444;background:#fee2e2;padding:10px;border-radius:12px;margin-bottom:15px;">❌ Wrong password! Try again.</div>
+        <input type="password" id="adminPassword" placeholder="Enter password">
+        <button onclick="checkAdminLogin()">Login</button>
+        <div class="helper-note">💡 Only website owner has access</div>
     </div>
 </div>
 
@@ -251,20 +237,13 @@
 </div></div>
 
 <script>
-    // Data storage
+    // ===== HARDCODED PASSWORD =====
+    const ADMIN_PASSWORD = "Yasin123";
+    // ==============================
+    
     let newsItems = [];
     let profilePhotoUrl = "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
     let isAdminLoggedIn = false;
-    
-    // Simple hash function for password (stored in localStorage)
-    function hashPassword(pwd) {
-        let hash = 0;
-        for(let i = 0; i < pwd.length; i++) {
-            hash = ((hash << 5) - hash) + pwd.charCodeAt(i);
-            hash |= 0;
-        }
-        return hash.toString();
-    }
     
     function showToast(msg) {
         let toast = document.createElement("div");
@@ -274,52 +253,27 @@
         setTimeout(() => toast.remove(), 3000);
     }
     
-    // Check if admin password exists
-    function isAdminSetup() {
-        return localStorage.getItem("admin_password_hash") !== null;
-    }
-    
-    function createAdminPassword() {
-        let pwd1 = document.getElementById("newPassword").value;
-        let pwd2 = document.getElementById("confirmPassword").value;
-        if(pwd1 === "" || pwd2 === "") {
-            alert("Please enter a password!");
-            return;
-        }
-        if(pwd1 !== pwd2) {
-            alert("Passwords do not match!");
-            return;
-        }
-        if(pwd1.length < 4) {
-            alert("Password must be at least 4 characters!");
-            return;
-        }
-        localStorage.setItem("admin_password_hash", hashPassword(pwd1));
-        document.getElementById("firstTimeModal").style.display = "none";
-        showToast("✅ Admin password created! Please login.");
-    }
-    
-    function checkSecureAdminLogin() {
+    function checkAdminLogin() {
         let enteredPwd = document.getElementById("adminPassword").value;
-        let storedHash = localStorage.getItem("admin_password_hash");
-        if(hashPassword(enteredPwd) === storedHash) {
+        
+        if(enteredPwd === ADMIN_PASSWORD) {
             document.getElementById("loginModal").style.display = "none";
             document.getElementById("adminModal").style.display = "flex";
             isAdminLoggedIn = true;
             displayAdminNews();
             document.getElementById("adminPassword").value = "";
+            document.getElementById("loginError").style.display = "none";
             showToast("✅ Login successful!");
         } else {
-            alert("❌ Incorrect password!");
+            document.getElementById("loginError").style.display = "block";
+            document.getElementById("adminPassword").value = "";
         }
     }
     
     function openAdminLogin() {
-        if(!isAdminSetup()) {
-            document.getElementById("firstTimeModal").style.display = "flex";
-        } else {
-            document.getElementById("loginModal").style.display = "flex";
-        }
+        document.getElementById("loginError").style.display = "none";
+        document.getElementById("adminPassword").value = "";
+        document.getElementById("loginModal").style.display = "flex";
     }
     
     function closeAdminPanel() { 
@@ -329,21 +283,21 @@
     
     // Load data from localStorage
     function loadData() {
-        let savedNews = localStorage.getItem("yasinsNews_secure");
+        let savedNews = localStorage.getItem("yasinsNews_final");
         if(savedNews) newsItems = JSON.parse(savedNews);
         else newsItems = [
             { id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities! Open to collaborations.", imageUrls: [], date: new Date().toLocaleDateString() },
             { id: Date.now()+1, text: "📚 Just completed a Marketing workshop and received great feedback!", imageUrls: [], date: new Date().toLocaleDateString() }
         ];
-        let savedPhoto = localStorage.getItem("yasinsPhoto_secure");
+        let savedPhoto = localStorage.getItem("yasinsPhoto_final");
         if(savedPhoto) profilePhotoUrl = savedPhoto;
         document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
     }
     
     function saveToLocal() {
-        localStorage.setItem("yasinsNews_secure", JSON.stringify(newsItems));
-        localStorage.setItem("yasinsPhoto_secure", profilePhotoUrl);
+        localStorage.setItem("yasinsNews_final", JSON.stringify(newsItems));
+        localStorage.setItem("yasinsPhoto_final", profilePhotoUrl);
     }
     
     function parseImageUrls(inputStr) {
@@ -453,12 +407,6 @@
         if(e.target === document.getElementById("loginModal")) document.getElementById("loginModal").style.display = "none";
         if(e.target === document.getElementById("adminModal")) document.getElementById("adminModal").style.display = "none";
         if(e.target === document.getElementById("editModal")) closeEditModal();
-        if(e.target === document.getElementById("firstTimeModal")) {} // Prevent closing by clicking outside
-    }
-    
-    // Check if first time setup is needed
-    if(!isAdminSetup()) {
-        document.getElementById("firstTimeModal").style.display = "flex";
     }
     
     loadData();
