@@ -107,6 +107,8 @@
         .helper-note{font-size:0.7rem;color:#64748b;margin-top:5px;}
         .toast{position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:10px 20px;border-radius:40px;z-index:2000;animation:fadeInOut 3s ease;font-size:0.85rem;}
         @keyframes fadeInOut{0%{opacity:0;transform:translateY(20px);}15%{opacity:1;transform:translateY(0);}85%{opacity:1;}100%{opacity:0;visibility:hidden;}}
+        .token-info-box{background:#e0e7ff;padding:12px;border-radius:16px;margin:15px 0;font-size:0.8rem;}
+        .token-info-box a{color:#4c1d95;}
     </style>
 </head>
 <body>
@@ -201,7 +203,7 @@
     <section id="newsfeed" style="background:#fff;">
         <div class="container">
             <h2 class="section-title">📰 Latest News & Updates</h2>
-            <div id="newsfeedContainer" class="newsfeed"><div style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Loading from cloud...</div></div>
+            <div id="newsfeedContainer" class="newsfeed"><div style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-pulse"></i> Loading...</div></div>
         </div>
     </section>
 
@@ -223,18 +225,18 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Cloud Backup Enabled</p>
+        <p>© 2026 MD Yasin Hossain — Built with <i class="fas fa-heart"></i> | Fully Responsive Portfolio</p>
     </div>
 </footer>
 
-<!-- Token Setup Modal (First time only) -->
+<!-- Token Setup Modal -->
 <div id="tokenModal" class="modal">
     <div class="modal-content">
-        <h3>🔧 Enable Cloud Backup (Recommended)</h3>
-        <p>Your posts will be saved to GitHub and will NEVER disappear, even after code updates.</p>
-        <div class="helper-note" style="background:#e0e7ff;padding:12px;border-radius:16px;margin:15px 0;">
-            <strong>📝 How to get a GitHub token:</strong><br>
-            1. Go to <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">github.com/settings/tokens/new</a><br>
+        <h3>🔧 Enable Cloud Backup (Optional)</h3>
+        <p>Save your posts to GitHub so they NEVER disappear when you update code.</p>
+        <div class="token-info-box">
+            <strong>📝 How to get a GitHub token (2 minutes):</strong><br>
+            1. <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank">Click here to create a token</a><br>
             2. Enter any name (e.g., "Portfolio Backup")<br>
             3. Select <strong>"repo"</strong> scope<br>
             4. Click "Generate token"<br>
@@ -242,7 +244,7 @@
         </div>
         <input type="password" id="githubTokenInput" placeholder="Paste your GitHub token here">
         <button onclick="saveToken()">Enable Cloud Backup</button>
-        <button onclick="skipToken()" style="background:#64748b;">Skip (Use Local Only - May lose data)</button>
+        <button onclick="skipToken()" style="background:#64748b;">Skip (Posts save locally only)</button>
     </div>
 </div>
 
@@ -250,10 +252,9 @@
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <h3>🔐 Admin Login</h3>
-        <div id="loginError" class="helper-note" style="display:none;color:#ef4444;background:#fee2e2;padding:10px;border-radius:12px;margin-bottom:15px;">❌ Wrong password! Try again.</div>
+        <div id="loginError" style="display:none;color:#ef4444;background:#fee2e2;padding:10px;border-radius:12px;margin-bottom:15px;font-size:0.85rem;">❌ Wrong password! Try again.</div>
         <input type="password" id="adminPassword" placeholder="Enter password">
         <button onclick="checkAdminLogin()">Login</button>
-        <div class="helper-note">💡 Password: Yasin123</div>
     </div>
 </div>
 
@@ -267,7 +268,7 @@
     <h4>📝 Add News Post (Multiple Images)</h4>
     <textarea id="newsTextInput" rows="3" placeholder="Write your news here..."></textarea>
     <input type="text" id="newsImageInput" placeholder="Image URLs (comma separated)">
-    <div class="helper-note">💡 Tip: Separate multiple image URLs with commas. Example: url1.jpg, url2.jpg</div>
+    <div class="helper-note">💡 Separate multiple image URLs with commas. Example: url1.jpg, url2.jpg</div>
     <button onclick="addNews()">Publish News</button>
     <hr>
     <h4>✏️ Edit / Delete News Posts</h4>
@@ -310,7 +311,7 @@
                 newsItems = content.newsItems || [];
                 profilePhotoUrl = content.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin";
                 document.getElementById("profileImage").src = profilePhotoUrl;
-                document.getElementById("cloudStatusText") && (document.getElementById("cloudStatusText").innerHTML = "✅ Active");
+                if(document.getElementById("cloudStatusText")) document.getElementById("cloudStatusText").innerHTML = "✅ Active";
                 displayNews();
                 return true;
             }
@@ -340,28 +341,35 @@
     
     function saveToken() {
         let token = document.getElementById("githubTokenInput").value.trim();
-        if(token) {
+        if(token && token.length > 10) {
             githubToken = token;
             localStorage.setItem("github_token", token);
             document.getElementById("tokenModal").style.display = "none";
             showToast("Token saved! Reloading...");
-            setTimeout(() => location.reload(), 1000);
-        } else alert("Enter a valid token");
+            setTimeout(() => location.reload(), 1500);
+        } else { alert("Please enter a valid GitHub token"); }
     }
     
     function skipToken() {
         document.getElementById("tokenModal").style.display = "none";
         showToast("Using local storage only. Data may be lost on code update.");
         loadLocalBackup();
+        if(document.getElementById("cloudStatusText")) document.getElementById("cloudStatusText").innerHTML = "❌ Not Active";
     }
     
     function loadLocalBackup() {
         let saved = localStorage.getItem("portfolio_backup");
-        if(saved) { let data = JSON.parse(saved); newsItems = data.newsItems || []; profilePhotoUrl = data.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin"; }
-        else { newsItems = [{ id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities!", imageUrls: [], date: new Date().toLocaleDateString() }]; }
+        if(saved) { 
+            let data = JSON.parse(saved); 
+            newsItems = data.newsItems || []; 
+            profilePhotoUrl = data.profilePhoto || "https://placehold.co/600x600/667eea/white?text=MD+Yasin"; 
+        }
+        if(newsItems.length === 0) {
+            newsItems = [{ id: Date.now(), text: "🎉 Looking for Campus Ambassador opportunities! Open to collaborations.", imageUrls: [], date: new Date().toLocaleDateString() }];
+        }
         document.getElementById("profileImage").src = profilePhotoUrl;
         displayNews();
-        document.getElementById("cloudStatusText") && (document.getElementById("cloudStatusText").innerHTML = "❌ Not Active");
+        if(document.getElementById("cloudStatusText")) document.getElementById("cloudStatusText").innerHTML = "❌ Not Active";
     }
     
     function saveLocalBackup() { localStorage.setItem("portfolio_backup", JSON.stringify({ newsItems: newsItems, profilePhoto: profilePhotoUrl })); }
@@ -378,10 +386,17 @@
             document.getElementById("adminPassword").value = "";
             document.getElementById("loginError").style.display = "none";
             showToast("✅ Login successful!");
-        } else { document.getElementById("loginError").style.display = "block"; document.getElementById("adminPassword").value = ""; }
+        } else { 
+            document.getElementById("loginError").style.display = "block"; 
+            document.getElementById("adminPassword").value = ""; 
+        }
     }
     
-    function openAdminLogin() { document.getElementById("loginError").style.display = "none"; document.getElementById("adminPassword").value = ""; document.getElementById("loginModal").style.display = "flex"; }
+    function openAdminLogin() { 
+        document.getElementById("loginError").style.display = "none"; 
+        document.getElementById("adminPassword").value = ""; 
+        document.getElementById("loginModal").style.display = "flex"; 
+    }
     function closeAdminPanel() { document.getElementById("adminModal").style.display = "none"; isAdminLoggedIn = false; }
     
     function parseImageUrls(str) { if(!str || !str.trim()) return []; return str.split(',').map(u=>u.trim()).filter(u=>u.startsWith("http")); }
@@ -447,7 +462,7 @@
     }
     
     async function deleteNews(id) {
-        if(confirm("Delete?")){ newsItems = newsItems.filter(i=>i.id!==id); await syncData(); displayNews(); if(isAdminLoggedIn) displayAdminNews(); showToast("Deleted"); }
+        if(confirm("Delete this news post?")){ newsItems = newsItems.filter(i=>i.id!==id); await syncData(); displayNews(); if(isAdminLoggedIn) displayAdminNews(); showToast("Deleted"); }
     }
     
     async function updateProfilePhoto() {
@@ -456,7 +471,7 @@
         profilePhotoUrl = url;
         document.getElementById("profileImage").src = profilePhotoUrl;
         await syncData();
-        showToast("Photo updated!");
+        showToast("Profile photo updated!");
         document.getElementById("photoUrlInput").value = "";
     }
     
@@ -470,8 +485,14 @@
     }
     
     async function init() {
-        if(!githubToken) { document.getElementById("tokenModal").style.display = "flex"; loadLocalBackup(); }
-        else { let loaded = await loadFromGitHub(); if(!loaded) loadLocalBackup(); }
+        // Check if token exists, if not show popup after 1 second
+        if(!githubToken) { 
+            setTimeout(() => { document.getElementById("tokenModal").style.display = "flex"; }, 500);
+            loadLocalBackup(); 
+        } else { 
+            let loaded = await loadFromGitHub(); 
+            if(!loaded) loadLocalBackup(); 
+        }
         if(document.getElementById("cloudStatusText")) document.getElementById("cloudStatusText").innerHTML = githubToken ? "✅ Active" : "❌ Not Active";
     }
     init();
